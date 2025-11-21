@@ -32,6 +32,14 @@ function loadSavedImage() {
     if (savedImage) {
         document.getElementById('petImage').src = savedImage;
     }
+    
+    // Handle image load errors
+    const petImage = document.getElementById('petImage');
+    petImage.onerror = function() {
+        console.error('Failed to load image. Please check the file path.');
+        // Clear broken localStorage image
+        localStorage.removeItem('petImage');
+    };
 }
 
 // Diet management
