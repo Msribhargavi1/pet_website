@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Health Records</title>
+    <title>Cherry - The Golden Retriever</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🐾 Pet Health Records</h1>
+            <h1>🐾 Cherry - The Golden Retriever</h1>
         </header>
 
         <section class="pet-profile">
             <div class="profile-header">
                 <div class="pet-image">
-                    <img id="petImage" src="https://via.placeholder.com/200x200?text=Pet+Photo" alt="Pet Photo">
+                    <img id="petImage" src="Image (5).jpg" alt="Pet Photo">
                     <input type="file" id="imageUpload" accept="image/*">
                     <label for="imageUpload" class="upload-btn">Upload Photo</label>
                 </div>
                 <div class="pet-basic-info">
-                    <h2>Basic Information</h2>
-                    <p><strong>Date of Birth:</strong> 18-10-2021</p>
+                    <h2>Cherry - Golden Retriever</h2>
+                    <p><strong>Born:</strong> October 2021, Anantapur</p>
                     <p><strong>Age:</strong> <span id="petAge"></span></p>
+                    <p><strong>Living in:</strong> Tadipatri</p>
+                    <p><strong>Address:</strong> 15/1149-6-1, Ground Floor, Sanjeeva Nagar, 5th Road, Tadipatri 515411</p>
+                    <p><strong>Contact:</strong> 8978833504</p>
                 </div>
             </div>
         </section>
@@ -59,61 +62,105 @@
 
         <section class="medical-history">
             <h2>Medical History</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">October 2025</div>
-                    <div class="timeline-content">
-                        <h3>Vaccination</h3>
-                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+            
+            <div class="year-accordion">
+                <div class="year-section">
+                    <button class="year-header" onclick="toggleYear('year2025')">
+                        <span>2025</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="year2025" class="year-content">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">October 2025</div>
+                                <div class="timeline-content">
+                                    <h3>Vaccination</h3>
+                                    <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">November 2025</div>
+                                <div class="timeline-content">
+                                    <h3>Immunity Booster</h3>
+                                    <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">April 2025</div>
+                                <div class="timeline-content">
+                                    <h3>Rabies Vaccination</h3>
+                                    <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">March 2025</div>
+                                <div class="timeline-content">
+                                    <h3>Blood Motions & Vomiting</h3>
+                                    <p><strong>Diagnosis:</strong> Liver issue</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">November 2025</div>
-                    <div class="timeline-content">
-                        <h3>Immunity Booster</h3>
-                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+
+                <div class="year-section">
+                    <button class="year-header" onclick="toggleYear('year2023')">
+                        <span>2023</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="year2023" class="year-content">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">2023</div>
+                                <div class="timeline-content">
+                                    <h3>Blood Motions</h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">April 2025</div>
-                    <div class="timeline-content">
-                        <h3>Rabies Vaccination</h3>
-                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+
+                <div class="year-section">
+                    <button class="year-header" onclick="toggleYear('year2022')">
+                        <span>2022</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="year2022" class="year-content">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">May 2022</div>
+                                <div class="timeline-content">
+                                    <h3>Shedding Treatment</h3>
+                                    <p><strong>Doctor:</strong> Dr. Hussain</p>
+                                    <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">2022</div>
+                                <div class="timeline-content">
+                                    <h3>Liver Issue</h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">March 2025</div>
-                    <div class="timeline-content">
-                        <h3>Blood Motions & Vomiting</h3>
-                        <p><strong>Diagnosis:</strong> Liver issue</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2023</div>
-                    <div class="timeline-content">
-                        <h3>Blood Motions</h3>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">May 2022</div>
-                    <div class="timeline-content">
-                        <h3>Shedding Treatment</h3>
-                        <p><strong>Doctor:</strong> Dr. Hussain</p>
-                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2022</div>
-                    <div class="timeline-content">
-                        <h3>Liver Issue</h3>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2021</div>
-                    <div class="timeline-content">
-                        <h3>First Vaccinations</h3>
-                        <p><strong>Doctor:</strong> Dr. Ratnadeep</p>
-                        <p><strong>Hospital:</strong> Govardhana Veterinary Medicals, Anantapur</p>
+
+                <div class="year-section">
+                    <button class="year-header" onclick="toggleYear('year2021')">
+                        <span>2021</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="year2021" class="year-content">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">2021</div>
+                                <div class="timeline-content">
+                                    <h3>First Vaccinations</h3>
+                                    <p><strong>Doctor:</strong> Dr. Ratnadeep</p>
+                                    <p><strong>Hospital:</strong> Govardhana Veterinary Medicals, Anantapur</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
