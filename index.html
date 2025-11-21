@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Health Records</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐾 Pet Health Records</h1>
+        </header>
+
+        <section class="pet-profile">
+            <div class="profile-header">
+                <div class="pet-image">
+                    <img id="petImage" src="https://via.placeholder.com/200x200?text=Pet+Photo" alt="Pet Photo">
+                    <input type="file" id="imageUpload" accept="image/*">
+                    <label for="imageUpload" class="upload-btn">Upload Photo</label>
+                </div>
+                <div class="pet-basic-info">
+                    <h2>Basic Information</h2>
+                    <p><strong>Date of Birth:</strong> 18-10-2021</p>
+                    <p><strong>Age:</strong> <span id="petAge"></span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="vaccinations">
+            <h2>Vaccination Records</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>💉 Deworming</h3>
+                    <p class="status">Status: Up to date</p>
+                </div>
+                <div class="card">
+                    <h3>🛡️ Immunity</h3>
+                    <p class="status">Last: November 2025</p>
+                    <p class="location">Government Hospital, Tadipatri</p>
+                </div>
+                <div class="card">
+                    <h3>🦠 Rabies</h3>
+                    <p class="status">Last: April 2025</p>
+                    <p class="location">Government Hospital, Tadipatri</p>
+                </div>
+                <div class="card">
+                    <h3>🐕 Shedding</h3>
+                    <p class="status">Last: May 2022</p>
+                    <p class="doctor">Dr. Hussain</p>
+                    <p class="location">Government Hospital, Tadipatri</p>
+                </div>
+                <div class="card">
+                    <h3>🪲 Ticks</h3>
+                    <p class="status">Treatment available</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="medical-history">
+            <h2>Medical History</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">October 2025</div>
+                    <div class="timeline-content">
+                        <h3>Vaccination</h3>
+                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">November 2025</div>
+                    <div class="timeline-content">
+                        <h3>Immunity Booster</h3>
+                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">April 2025</div>
+                    <div class="timeline-content">
+                        <h3>Rabies Vaccination</h3>
+                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">March 2025</div>
+                    <div class="timeline-content">
+                        <h3>Blood Motions & Vomiting</h3>
+                        <p><strong>Diagnosis:</strong> Liver issue</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h3>Blood Motions</h3>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">May 2022</div>
+                    <div class="timeline-content">
+                        <h3>Shedding Treatment</h3>
+                        <p><strong>Doctor:</strong> Dr. Hussain</p>
+                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2022</div>
+                    <div class="timeline-content">
+                        <h3>Liver Issue</h3>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2021</div>
+                    <div class="timeline-content">
+                        <h3>First Vaccinations</h3>
+                        <p><strong>Doctor:</strong> Dr. Ratnadeep</p>
+                        <p><strong>Hospital:</strong> Govardhana Veterinary Medicals, Anantapur</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hospitals">
+            <h2>Hospital Information</h2>
+            <div class="card-grid">
+                <div class="card hospital-card">
+                    <h3>🏥 Government Hospital</h3>
+                    <p><strong>Location:</strong> Tadipatri</p>
+                    <p><strong>Doctors:</strong> Dr. Hussain</p>
+                    <p><strong>Last Visit:</strong> November 2025</p>
+                </div>
+                <div class="card hospital-card">
+                    <h3>🏥 Govardhana Veterinary Medicals</h3>
+                    <p><strong>Location:</strong> Anantapur</p>
+                    <p><strong>Doctors:</strong> Dr. Ratnadeep</p>
+                    <p><strong>Last Visit:</strong> 2021</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="diet">
+            <h2>Food & Diet</h2>
+            <div class="diet-container">
+                <div class="diet-section">
+                    <h3>🍖 Regular Diet</h3>
+                    <ul id="dietList">
+                        <li>Add diet items using the form below</li>
+                    </ul>
+                </div>
+                <div class="diet-section">
+                    <h3>🦴 Treats</h3>
+                    <ul id="treatsList">
+                        <li>Add treat items using the form below</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="add-diet-form">
+                <input type="text" id="dietInput" placeholder="Add food item">
+                <button onclick="addDiet()">Add to Diet</button>
+                <input type="text" id="treatInput" placeholder="Add treat item">
+                <button onclick="addTreat()">Add to Treats</button>
+            </div>
+        </section>
+
+        <section class="medicines">
+            <h2>Medicines</h2>
+            <div class="medicine-list" id="medicineList">
+                <p>Add medicines using the form below</p>
+            </div>
+            <div class="add-medicine-form">
+                <input type="text" id="medicineInput" placeholder="Medicine name">
+                <input type="text" id="dosageInput" placeholder="Dosage">
+                <button onclick="addMedicine()">Add Medicine</button>
+            </div>
+        </section>
+
+        <section class="next-due">
+            <h2>Next Vaccination Due</h2>
+            <div class="due-container">
+                <input type="date" id="nextDueDate">
+                <input type="text" id="nextDueType" placeholder="Vaccination type">
+                <button onclick="setNextDue()">Set Next Due</button>
+                <div id="dueDisplay" class="due-display"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
