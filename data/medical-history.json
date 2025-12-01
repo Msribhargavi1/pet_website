@@ -1,0 +1,72 @@
+{
+  "medicalHistory": [
+    {
+      "year": 2025,
+      "records": [
+        {
+          "date": "November 2025",
+          "treatment": "Immunity Booster",
+          "doctor": "Dr. Hussain",
+          "hospital": "Government Hospital, Tadipatri"
+        },
+        {
+          "date": "October 2025",
+          "treatment": "Vaccination",
+          "doctor": "Dr. Hussain",
+          "hospital": "Government Hospital, Tadipatri"
+        },
+        {
+          "date": "April 2025",
+          "treatment": "Rabies Vaccination",
+          "doctor": "Dr. Hussain",
+          "hospital": "Government Hospital, Tadipatri"
+        },
+        {
+          "date": "March 2025",
+          "treatment": "Portosystemic Shunt (PSS)",
+          "doctor": "Dr. Hussain",
+          "hospital": "Government Hospital, Tadipatri"
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "records": [
+        {
+          "date": "October 2023",
+          "treatment": "Portosystemic Shunt (PSS)",
+          "doctor": "Dr. Srikanth",
+          "hospital": "Government Hospital, Pullivendala"
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "records": [
+        {
+          "date": "May 2022",
+          "treatment": "Shedding Treatment",
+          "doctor": "Dr. Hussain",
+          "hospital": "Government Hospital, Tadipatri"
+        },
+        {
+          "date": "April 2022",
+          "treatment": "Portosystemic Shunt (PSS)",
+          "doctor": "Dr. Srikanth",
+          "hospital": "Government Hospital, Tadipatri"
+        }
+      ]
+    },
+    {
+      "year": 2021,
+      "records": [
+        {
+          "date": "2021",
+          "treatment": "First Vaccinations",
+          "doctor": "Dr. Ratnadeep",
+          "hospital": "Govardhana Veterinary Medicals, Anantapur"
+        }
+      ]
+    }
+  ]
+}

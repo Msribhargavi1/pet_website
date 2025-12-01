@@ -1,0 +1,35 @@
+{
+  "vaccinations": [
+    {
+      "name": "Deworming",
+      "status": "Up to date",
+      "lastDate": null,
+      "location": null
+    },
+    {
+      "name": "Immunity",
+      "status": "Last: November 2025",
+      "lastDate": "2025-11",
+      "location": "Government Hospital, Tadipatri"
+    },
+    {
+      "name": "Rabies",
+      "status": "Last: April 2025",
+      "lastDate": "2025-04",
+      "location": "Government Hospital, Tadipatri"
+    },
+    {
+      "name": "Shedding",
+      "status": "Last: May 2022",
+      "lastDate": "2022-05",
+      "doctor": "Dr. Hussain",
+      "location": "Government Hospital, Tadipatri"
+    },
+    {
+      "name": "Ticks",
+      "status": "Treatment available",
+      "lastDate": null,
+      "location": null
+    }
+  ]
+}

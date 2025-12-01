@@ -476,3 +476,294 @@ h2 {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* Growth Tracking */
+.tracking-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.tracking-form input {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.tracking-chart {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    min-height: 200px;
+}
+
+.tracking-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.tracking-item {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Vaccination Reminder */
+.reminder-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.reminder-form input,
+.reminder-form select {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.reminder-list {
+    display: grid;
+    gap: 15px;
+}
+
+.reminder-item {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reminder-item.overdue {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+}
+
+.reminder-item.upcoming {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+/* Symptoms Checker */
+.symptoms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.symptoms-grid label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.symptoms-grid label:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.symptoms-grid input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.symptoms-result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    display: none;
+}
+
+.symptoms-result.show {
+    display: block;
+}
+
+.symptoms-result.low {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.symptoms-result.medium {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+.symptoms-result.high {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+}
+
+.symptoms-result h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Medication Tracking */
+.medication-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.medication-form input {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.medication-tracking-list {
+    display: grid;
+    gap: 15px;
+}
+
+.medication-tracking-item {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.medication-tracking-item.low-stock {
+    border-left-color: #f5576c;
+    background: #fff5f5;
+}
+
+/* Family Access */
+.family-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.family-form input,
+.family-form select {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.family-list {
+    display: grid;
+    gap: 15px;
+}
+
+.family-member {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.family-member .role {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.family-member .role.admin {
+    background: #667eea;
+    color: white;
+}
+
+.family-member .role.editor {
+    background: #ffecd2;
+    color: #333;
+}
+
+.family-member .role.viewer {
+    background: #e9ecef;
+    color: #555;
+}
+
+/* AI Chatbot */
+.chatbot-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.chat-messages {
+    height: 400px;
+    overflow-y: auto;
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.bot-message,
+.user-message {
+    padding: 12px 18px;
+    border-radius: 18px;
+    margin-bottom: 12px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.bot-message {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin-right: auto;
+}
+
+.user-message {
+    background: #e9ecef;
+    color: #333;
+    margin-left: auto;
+    text-align: right;
+}
+
+.chat-input-container {
+    display: flex;
+    padding: 15px;
+    background: white;
+    border-top: 2px solid #e0e0e0;
+}
+
+.chat-input-container input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    margin-right: 10px;
+}
+
+.chat-input-container button {
+    padding: 12px 30px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.chat-input-container button:hover {
+    background: #764ba2;
+}

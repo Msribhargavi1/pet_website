@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cherry - The Golden Retriever</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="container">
@@ -114,16 +114,20 @@
             <div class="card-grid">
                 <div class="card">
                     <h3>💉 Deworming</h3>
-                    <p class="status">Status: Up to date</p>
+                    <p class="status">Last: November 2025</p>
+                    <p class="doctor">Dr. Hussain</p>
+                    <p class="location">Government Hospital, Tadipatri</p>
                 </div>
                 <div class="card">
                     <h3>🛡️ Immunity</h3>
                     <p class="status">Last: November 2025</p>
+                    <p class="doctor">Dr. Hussain</p>
                     <p class="location">Government Hospital, Tadipatri</p>
                 </div>
                 <div class="card">
                     <h3>🦠 Rabies</h3>
                     <p class="status">Last: April 2025</p>
+                    <p class="doctor">Dr. Hussain</p>
                     <p class="location">Government Hospital, Tadipatri</p>
                 </div>
                 <div class="card">
@@ -134,7 +138,9 @@
                 </div>
                 <div class="card">
                     <h3>🪲 Ticks</h3>
-                    <p class="status">Treatment available</p>
+                    <p class="status">Last: October 2025</p>
+                    <p class="doctor">Dr. Hussain</p>
+                    <p class="location">Government Hospital, Tadipatri</p>
                 </div>
             </div>
         </section>
@@ -414,8 +420,107 @@
                 <div id="dueDisplay" class="due-display"></div>
             </div>
         </section>
+
+        <section class="growth-tracking">
+            <h2>📊 Growth & Weight Tracking</h2>
+            <div class="tracking-form">
+                <input type="date" id="trackingDate" placeholder="Date">
+                <input type="number" id="weightInput" placeholder="Weight (kg)" step="0.1">
+                <input type="number" id="heightInput" placeholder="Height (cm)" step="0.1">
+                <button onclick="addTracking()">Add Record</button>
+            </div>
+            <div id="trackingChart" class="tracking-chart">
+                <p>Add weight and height records to see growth analytics</p>
+            </div>
+            <div id="trackingList" class="tracking-list"></div>
+        </section>
+
+        <section class="vaccination-reminder">
+            <h2>💉 Vaccination Reminder System</h2>
+            <div class="reminder-form">
+                <input type="text" id="reminderVaccine" placeholder="Vaccine name">
+                <input type="date" id="reminderDate" placeholder="Due date">
+                <select id="reminderMethod">
+                    <option value="">Select reminder method</option>
+                    <option value="email">Email</option>
+                    <option value="sms">SMS</option>
+                    <option value="app">In-App Alert</option>
+                </select>
+                <button onclick="setReminder()">Set Reminder</button>
+            </div>
+            <div id="reminderList" class="reminder-list">
+                <p>No reminders set</p>
+            </div>
+        </section>
+
+        <section class="symptoms-checker">
+            <h2>🩺 Symptoms Checker</h2>
+            <div class="symptoms-form">
+                <h3>Select Symptoms:</h3>
+                <div class="symptoms-grid">
+                    <label><input type="checkbox" value="vomiting"> Vomiting</label>
+                    <label><input type="checkbox" value="diarrhea"> Diarrhea</label>
+                    <label><input type="checkbox" value="lethargy"> Lethargy</label>
+                    <label><input type="checkbox" value="loss-appetite"> Loss of Appetite</label>
+                    <label><input type="checkbox" value="coughing"> Coughing</label>
+                    <label><input type="checkbox" value="fever"> Fever</label>
+                    <label><input type="checkbox" value="limping"> Limping</label>
+                    <label><input type="checkbox" value="scratching"> Excessive Scratching</label>
+                    <label><input type="checkbox" value="breathing"> Difficulty Breathing</label>
+                    <label><input type="checkbox" value="seizures"> Seizures</label>
+                </div>
+                <button onclick="checkSymptoms()">Check Symptoms</button>
+            </div>
+            <div id="symptomsResult" class="symptoms-result"></div>
+        </section>
+
+        <section class="medication-tracking">
+            <h2>💊 Medication Tracking & Refill Alerts</h2>
+            <div class="medication-form">
+                <input type="text" id="medName" placeholder="Medication name">
+                <input type="text" id="medDosage" placeholder="Dosage">
+                <input type="number" id="medQuantity" placeholder="Quantity remaining">
+                <input type="date" id="medRefillDate" placeholder="Refill date">
+                <button onclick="addMedicationTracking()">Add Medication</button>
+            </div>
+            <div id="medicationTrackingList" class="medication-tracking-list">
+                <p>No medications tracked</p>
+            </div>
+        </section>
+
+        <section class="family-access">
+            <h2>👨‍👩‍👧‍👦 Family Sharing Access</h2>
+            <div class="family-form">
+                <input type="text" id="familyName" placeholder="Family member name">
+                <input type="email" id="familyEmail" placeholder="Email address">
+                <select id="familyRole">
+                    <option value="">Select access level</option>
+                    <option value="admin">Admin (Full Access)</option>
+                    <option value="editor">Editor (Can Edit)</option>
+                    <option value="viewer">Viewer (Read Only)</option>
+                </select>
+                <button onclick="addFamilyMember()">Add Family Member</button>
+            </div>
+            <div id="familyList" class="family-list">
+                <p>No family members added</p>
+            </div>
+        </section>
+
+        <section class="ai-chatbot">
+            <h2>🤖 AI Pet Health Assistant</h2>
+            <div class="chatbot-container">
+                <div id="chatMessages" class="chat-messages">
+                    <div class="bot-message">Hello! I'm your AI pet health assistant. Ask me anything about Cherry's health, diet, or care!</div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="Ask about pet health..." onkeypress="if(event.key==='Enter') sendMessage()">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/data-loader.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
