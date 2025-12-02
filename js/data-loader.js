@@ -253,6 +253,102 @@ const DataLoader = {
         }
     },
 
+    // Load medications
+    async loadMedications() {
+        try {
+            const response = await fetch('data/medicines.json');
+            const data = await response.json();
+            this.displayMedications(data.medications);
+        } catch (error) {
+            console.error('Error loading medications, using fallback data:', error);
+            // Fallback data if fetch fails
+            const fallbackData = [
+                {
+                    name: "Liver Support Syrup",
+                    dosage: "5 ml, twice daily",
+                    quantity: 18,
+                    unit: "doses",
+                    refillDate: "2025-12-03"
+                },
+                {
+                    name: "Probiotic Chew",
+                    dosage: "1 chew, once daily",
+                    quantity: 22,
+                    unit: "chews",
+                    refillDate: "2025-12-06"
+                },
+                {
+                    name: "Omega-3 Skin Capsule",
+                    dosage: "1 capsule, once daily",
+                    quantity: 10,
+                    unit: "capsules",
+                    refillDate: "2025-12-11"
+                },
+                {
+                    name: "Multivitamin Tablet",
+                    dosage: "½ tablet, once daily",
+                    quantity: 14,
+                    unit: "tablets",
+                    refillDate: "2025-12-19"
+                },
+                {
+                    name: "Joint Support Powder",
+                    dosage: "1 scoop, once on alt days",
+                    quantity: 9,
+                    unit: "scoops",
+                    refillDate: "2025-12-27"
+                },
+                {
+                    name: "Deworming Tablet",
+                    dosage: "1 tablet, single dose",
+                    quantity: 1,
+                    unit: "tablet",
+                    refillDate: "2026-01-05"
+                }
+            ];
+            this.displayMedications(fallbackData);
+        }
+    },
+
+    displayMedications(medications) {
+        const list = document.getElementById('medicationTrackingList');
+        
+        if (medications && medications.length > 0) {
+            list.innerHTML = '';
+            
+            medications.forEach(med => {
+                const refillDate = new Date(med.refillDate);
+                const today = new Date();
+                const daysUntilRefill = Math.ceil((refillDate - today) / (1000 * 60 * 60 * 24));
+                
+                const isLowStock = med.quantity <= 5;
+                const isUrgent = daysUntilRefill <= 7;
+                
+                const item = document.createElement('div');
+                item.className = `medication-tracking-item ${isLowStock ? 'low-stock' : ''}`;
+                
+                let alertMessage = '';
+                if (isLowStock && isUrgent) {
+                    alertMessage = '<p class="alert-urgent">⚠️ LOW STOCK & REFILL DUE SOON!</p>';
+                } else if (isLowStock) {
+                    alertMessage = '<p class="alert-warning">⚠️ LOW STOCK</p>';
+                } else if (isUrgent) {
+                    alertMessage = '<p class="alert-info">📅 Refill due soon</p>';
+                }
+                
+                item.innerHTML = `
+                    <h4>${med.name}</h4>
+                    <p><strong>Dosage:</strong> ${med.dosage}</p>
+                    <p><strong>Quantity Remaining:</strong> ${med.quantity} ${med.unit}</p>
+                    <p><strong>Next Alert Date:</strong> ${refillDate.toLocaleDateString('en-GB')}</p>
+                    <p><strong>Days Until Refill:</strong> ${daysUntilRefill > 0 ? daysUntilRefill + ' days' : 'OVERDUE'}</p>
+                    ${alertMessage}
+                `;
+                list.appendChild(item);
+            });
+        }
+    },
+
     // Load all data
     async loadAll() {
         await this.loadPetInfo();
@@ -261,6 +357,7 @@ const DataLoader = {
         await this.loadTreats();
         await this.loadHospitals();
         await this.loadGrowthTracking();
+        await this.loadMedications();
     }
 };
 

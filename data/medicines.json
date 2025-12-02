@@ -1,3 +1,46 @@
 {
-  "medicines": []
+  "medications": [
+    {
+      "name": "Liver Support Syrup",
+      "dosage": "5 ml, twice daily",
+      "quantity": 18,
+      "unit": "doses",
+      "refillDate": "2025-12-03"
+    },
+    {
+      "name": "Probiotic Chew",
+      "dosage": "1 chew, once daily",
+      "quantity": 22,
+      "unit": "chews",
+      "refillDate": "2025-12-06"
+    },
+    {
+      "name": "Omega-3 Skin Capsule",
+      "dosage": "1 capsule, once daily",
+      "quantity": 10,
+      "unit": "capsules",
+      "refillDate": "2025-12-11"
+    },
+    {
+      "name": "Multivitamin Tablet",
+      "dosage": "½ tablet, once daily",
+      "quantity": 14,
+      "unit": "tablets",
+      "refillDate": "2025-12-19"
+    },
+    {
+      "name": "Joint Support Powder",
+      "dosage": "1 scoop, once on alt days",
+      "quantity": 9,
+      "unit": "scoops",
+      "refillDate": "2025-12-27"
+    },
+    {
+      "name": "Deworming Tablet",
+      "dosage": "1 tablet, single dose",
+      "quantity": 1,
+      "unit": "tablet",
+      "refillDate": "2026-01-05"
+    }
+  ]
 }
