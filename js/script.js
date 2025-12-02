@@ -474,7 +474,7 @@ function saveFamilyMembers() {
 // AI Chatbot functions are now in ai-assistant.js
 
 
-// Toggle diet day dropdown
+// Toggle diet day dropdown (starts collapsed)
 function toggleDietDay(dayId) {
     const content = document.getElementById(dayId);
     const button = content.previousElementSibling;
@@ -490,7 +490,7 @@ function toggleDietDay(dayId) {
 }
 
 
-// Toggle album year dropdown
+// Toggle album year dropdown (starts collapsed)
 function toggleAlbumYear(yearId) {
     const content = document.getElementById(yearId);
     const button = content.previousElementSibling;
@@ -503,4 +503,467 @@ function toggleAlbumYear(yearId) {
         content.classList.add('active');
         arrow.style.transform = 'rotate(180deg)';
     }
+}
+
+
+// Medication View Functions
+function changeMedicationView() {
+    const viewType = document.getElementById('medViewType').value;
+    const cardsList = document.getElementById('medicationTrackingList');
+    const table = document.getElementById('medicationTable');
+    
+    if (viewType === 'table') {
+        cardsList.style.display = 'none';
+        table.style.display = 'block';
+        updateMedicationTable();
+    } else {
+        cardsList.style.display = 'grid';
+        table.style.display = 'none';
+    }
+}
+
+function updateMedicationTable() {
+    const tbody = document.getElementById('medicationTableBody');
+    const cards = document.querySelectorAll('.medication-tracking-item');
+    tbody.innerHTML = '';
+    
+    cards.forEach(card => {
+        const name = card.querySelector('h4').textContent;
+        const dosage = card.querySelector('p:nth-child(2)').textContent.replace('Dosage: ', '');
+        const quantity = card.querySelector('p:nth-child(3)').textContent.replace('Quantity Remaining: ', '');
+        const alertDate = card.querySelector('p:nth-child(4)').textContent.replace('Next Alert Date: ', '');
+        const daysUntil = card.querySelector('p:nth-child(5)').textContent.replace('Days Until Refill: ', '');
+        
+        let status = 'Normal';
+        let statusClass = 'status-normal';
+        if (card.querySelector('.alert-urgent')) {
+            status = 'Urgent';
+            statusClass = 'status-urgent';
+        } else if (card.querySelector('.alert-warning')) {
+            status = 'Low Stock';
+            statusClass = 'status-warning';
+        } else if (card.querySelector('.alert-info')) {
+            status = 'Due Soon';
+            statusClass = 'status-info';
+        }
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${name}</td>
+            <td>${dosage}</td>
+            <td>${quantity}</td>
+            <td>${alertDate}</td>
+            <td>${daysUntil}</td>
+            <td><span class="status-badge ${statusClass}">${status}</span></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function applyMedicationFilters() {
+    const typeFilter = document.getElementById('medTypeFilter').value;
+    const alertFilter = document.getElementById('medAlertFilter').value;
+    const stockFilter = document.getElementById('medStockFilter').value;
+    const sortBy = document.getElementById('medSortBy').value;
+    
+    let cards = Array.from(document.querySelectorAll('.medication-tracking-item'));
+    
+    // Filter by type
+    cards.forEach(card => {
+        const name = card.querySelector('h4').textContent.toLowerCase();
+        let showType = typeFilter === 'all';
+        
+        if (typeFilter === 'syrup' && name.includes('syrup')) showType = true;
+        if (typeFilter === 'tablet' && name.includes('tablet')) showType = true;
+        if (typeFilter === 'capsule' && name.includes('capsule')) showType = true;
+        if (typeFilter === 'chew' && name.includes('chew')) showType = true;
+        if (typeFilter === 'powder' && name.includes('powder')) showType = true;
+        
+        card.dataset.showType = showType;
+    });
+    
+    // Filter by alert range
+    cards.forEach(card => {
+        const daysText = card.querySelector('p:nth-child(5)').textContent;
+        const daysMatch = daysText.match(/(\d+) days|OVERDUE/);
+        let days = daysMatch ? (daysMatch[1] ? parseInt(daysMatch[1]) : -1) : 999;
+        
+        let showAlert = alertFilter === 'all';
+        if (alertFilter === 'overdue' && days < 0) showAlert = true;
+        if (alertFilter === 'week' && days >= 0 && days <= 7) showAlert = true;
+        if (alertFilter === 'month' && days >= 0 && days <= 30) showAlert = true;
+        if (alertFilter === 'future' && days > 30) showAlert = true;
+        
+        card.dataset.showAlert = showAlert;
+    });
+    
+    // Filter by stock status
+    cards.forEach(card => {
+        const quantityText = card.querySelector('p:nth-child(3)').textContent;
+        const quantityMatch = quantityText.match(/(\d+)/);
+        const quantity = quantityMatch ? parseInt(quantityMatch[1]) : 0;
+        
+        let showStock = stockFilter === 'all';
+        if (stockFilter === 'critical' && quantity <= 3) showStock = true;
+        if (stockFilter === 'low' && quantity <= 5) showStock = true;
+        if (stockFilter === 'medium' && quantity > 5 && quantity <= 15) showStock = true;
+        if (stockFilter === 'good' && quantity > 15) showStock = true;
+        
+        card.dataset.showStock = showStock;
+    });
+    
+    // Apply all filters
+    cards.forEach(card => {
+        const show = card.dataset.showType === 'true' && 
+                    card.dataset.showAlert === 'true' && 
+                    card.dataset.showStock === 'true';
+        card.style.display = show ? 'block' : 'none';
+    });
+    
+    // Sort medications
+    const visibleCards = cards.filter(card => card.style.display !== 'none');
+    const container = document.getElementById('medicationTrackingList');
+    
+    visibleCards.sort((a, b) => {
+        if (sortBy === 'name') {
+            return a.querySelector('h4').textContent.localeCompare(b.querySelector('h4').textContent);
+        } else if (sortBy === 'date') {
+            const dateA = new Date(a.querySelector('p:nth-child(4)').textContent.split(': ')[1]);
+            const dateB = new Date(b.querySelector('p:nth-child(4)').textContent.split(': ')[1]);
+            return dateA - dateB;
+        } else if (sortBy === 'quantity') {
+            const qtyA = parseInt(a.querySelector('p:nth-child(3)').textContent.match(/(\d+)/)[1]);
+            const qtyB = parseInt(b.querySelector('p:nth-child(3)').textContent.match(/(\d+)/)[1]);
+            return qtyA - qtyB;
+        } else if (sortBy === 'status') {
+            const statusA = a.querySelector('.alert-urgent') ? 0 : a.querySelector('.alert-warning') ? 1 : a.querySelector('.alert-info') ? 2 : 3;
+            const statusB = b.querySelector('.alert-urgent') ? 0 : b.querySelector('.alert-warning') ? 1 : b.querySelector('.alert-info') ? 2 : 3;
+            return statusA - statusB;
+        }
+        return 0;
+    });
+    
+    visibleCards.forEach(card => container.appendChild(card));
+    
+    // Update table if in table view
+    if (document.getElementById('medViewType').value === 'table') {
+        updateMedicationTable();
+    }
+}
+
+function toggleMedicationForm() {
+    const formContainer = document.getElementById('medicationFormContainer');
+    formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+}
+
+// Growth Tracking View Functions
+function changeGrowthView() {
+    const viewType = document.getElementById('growthViewType').value;
+    const chart = document.getElementById('trackingChart');
+    const table = document.getElementById('trackingTable');
+    const list = document.getElementById('trackingList');
+    
+    // Hide all views
+    chart.style.display = 'none';
+    table.style.display = 'none';
+    list.style.display = 'none';
+    
+    if (viewType === 'table') {
+        table.style.display = 'block';
+        updateGrowthTable();
+    } else if (viewType === 'comparison') {
+        list.style.display = 'grid';
+    } else {
+        chart.style.display = 'block';
+    }
+}
+
+function updateGrowthTable() {
+    const tbody = document.getElementById('trackingTableBody');
+    const items = document.querySelectorAll('.tracking-item');
+    tbody.innerHTML = '';
+    
+    items.forEach(item => {
+        const paragraphs = item.querySelectorAll('p');
+        const date = paragraphs[0].textContent.replace('Date: ', '');
+        const age = paragraphs[1]?.textContent.replace('Age: ', '') || 'N/A';
+        const height = paragraphs[2]?.textContent.replace('Height: ', '') || paragraphs[1]?.textContent.replace('Height: ', '');
+        const weight = paragraphs[3]?.textContent.replace('Weight: ', '') || paragraphs[2]?.textContent.replace('Weight: ', '');
+        const notes = paragraphs[4]?.textContent.replace('Notes: ', '') || 'N/A';
+        
+        const dateParts = date.split(' ');
+        const month = dateParts[0] || '';
+        const year = dateParts[1] || '';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${year}</td>
+            <td>${month}</td>
+            <td>${age}</td>
+            <td>${height}</td>
+            <td>${weight}</td>
+            <td>${notes}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function applyGrowthFilters() {
+    const yearFilter = document.getElementById('growthYearFilter').value;
+    const unitsFilter = document.getElementById('growthUnitsFilter').value;
+    const items = document.querySelectorAll('.tracking-item');
+    
+    items.forEach(item => {
+        const dateText = item.querySelector('p').textContent;
+        const year = dateText.split(' ')[2]; // Extract year from "Date: Month Year"
+        
+        // Filter by year
+        const showYear = yearFilter === 'all' || year === yearFilter;
+        item.style.display = showYear ? 'block' : 'none';
+        
+        // Convert units if needed
+        if (showYear && unitsFilter === 'imperial') {
+            const heightP = item.querySelector('p:nth-child(3)') || item.querySelector('p:nth-child(2)');
+            const weightP = item.querySelector('p:nth-child(4)') || item.querySelector('p:nth-child(3)');
+            
+            if (heightP && heightP.textContent.includes('cm')) {
+                const heightCm = parseFloat(heightP.textContent.match(/[\d.]+/)[0]);
+                const heightIn = (heightCm / 2.54).toFixed(1);
+                heightP.innerHTML = heightP.innerHTML.replace(/[\d.]+ cm/, heightIn + ' in');
+            }
+            
+            if (weightP && weightP.textContent.includes('kg')) {
+                const weightKg = parseFloat(weightP.textContent.match(/[\d.]+/)[0]);
+                const weightLbs = (weightKg * 2.205).toFixed(1);
+                weightP.innerHTML = weightP.innerHTML.replace(/[\d.]+ kg/, weightLbs + ' lbs');
+            }
+        } else if (showYear && unitsFilter === 'metric') {
+            // Convert back to metric if needed
+            const heightP = item.querySelector('p:nth-child(3)') || item.querySelector('p:nth-child(2)');
+            const weightP = item.querySelector('p:nth-child(4)') || item.querySelector('p:nth-child(3)');
+            
+            if (heightP && heightP.textContent.includes('in')) {
+                const heightIn = parseFloat(heightP.textContent.match(/[\d.]+/)[0]);
+                const heightCm = (heightIn * 2.54).toFixed(0);
+                heightP.innerHTML = heightP.innerHTML.replace(/[\d.]+ in/, heightCm + ' cm');
+            }
+            
+            if (weightP && weightP.textContent.includes('lbs')) {
+                const weightLbs = parseFloat(weightP.textContent.match(/[\d.]+/)[0]);
+                const weightKg = (weightLbs / 2.205).toFixed(1);
+                weightP.innerHTML = weightP.innerHTML.replace(/[\d.]+ lbs/, weightKg + ' kg');
+            }
+        }
+    });
+    
+    // Update table if in table view
+    if (document.getElementById('growthViewType').value === 'table') {
+        updateGrowthTable();
+    }
+    
+    // Update chart if in chart view
+    if (document.getElementById('growthViewType').value === 'chart') {
+        // Chart will automatically reflect filtered items
+    }
+}
+
+function toggleGrowthForm() {
+    const formContainer = document.getElementById('trackingFormContainer');
+    formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+}
+
+
+// Clear all medication filters
+function clearMedicationFilters() {
+    document.getElementById('medPetFilter').value = 'cherry';
+    document.getElementById('medTypeFilter').value = 'all';
+    document.getElementById('medAlertFilter').value = 'all';
+    document.getElementById('medStockFilter').value = 'all';
+    document.getElementById('medSortBy').value = 'name';
+    document.getElementById('medViewType').value = 'cards';
+    
+    // Show all medications
+    const cards = document.querySelectorAll('.medication-tracking-item');
+    cards.forEach(card => {
+        card.style.display = 'block';
+    });
+    
+    // Reset view to cards
+    document.getElementById('medicationTrackingList').style.display = 'grid';
+    document.getElementById('medicationTable').style.display = 'none';
+}
+
+// Clear all growth filters
+function clearGrowthFilters() {
+    document.getElementById('growthPetFilter').value = 'cherry';
+    document.getElementById('growthYearFilter').value = 'all';
+    document.getElementById('growthUnitsFilter').value = 'metric';
+    document.getElementById('growthViewType').value = 'chart';
+    
+    // Show all items
+    const items = document.querySelectorAll('.tracking-item');
+    items.forEach(item => {
+        item.style.display = 'block';
+    });
+    
+    // Reset view to chart
+    document.getElementById('trackingChart').style.display = 'block';
+    document.getElementById('trackingTable').style.display = 'none';
+    document.getElementById('trackingList').style.display = 'none';
+    
+    // Reset units to metric
+    applyGrowthFilters();
+}
+
+
+// Enhanced Album Filter Functions
+function applyAlbumFilters() {
+    const yearFilter = document.getElementById('albumYearFilter').value;
+    const categoryFilter = document.getElementById('albumCategoryFilter').value;
+    const petFilter = document.getElementById('albumPetFilter').value;
+    const locationFilter = document.getElementById('albumLocationFilter').value;
+    const mediaFilter = document.getElementById('albumMediaFilter').value;
+    const sortFilter = document.getElementById('albumSortFilter').value;
+    
+    const years = ['2025', '2024', '2023', '2022', '2021'];
+    const yearSections = [];
+    
+    // First collapse all
+    //collapseAllAlbum();
+    
+    // Collect all year sections
+    years.forEach(year => {
+        const section = document.querySelector(`#album${year}`)?.parentElement;
+        if (section) {
+            yearSections.push({ year, section });
+        }
+    });
+    
+    // Filter by year
+    yearSections.forEach(({ year, section }) => {
+        if (yearFilter === 'all' || year === yearFilter) {
+            document.getElementById(`album${year}`).style.display = 'block';
+            
+            // Auto-expand if specific year is selected
+            if (yearFilter !== 'all') {
+                const content = document.getElementById(`album${year}`);
+                const button = content.previousElementSibling;
+                //const arrow = button.querySelector('.arrow');
+                content.classList.add('active');
+                //arrow.style.transform = 'rotate(180deg)';
+            }
+        } else {
+            document.getElementById(`album${year}`).style.display = 'none';
+        }
+    });
+    
+    // Filter photos within visible years
+    yearSections.forEach(({ year, section }) => {
+        if (section.style.display !== 'none') {
+            const photos = section.querySelectorAll('.photo-item');
+            let hasVisiblePhotos = false;
+            
+            photos.forEach(photo => {
+                let show = true;
+                
+                // Category filter
+                if (categoryFilter !== 'all') {
+                    const caption = photo.querySelector('.photo-caption')?.textContent.toLowerCase() || '';
+                    show = show && caption.includes(categoryFilter);
+                }
+                
+                // Pet filter
+                if (petFilter !== 'all' && petFilter !== 'cherry') {
+                    show = false;
+                }
+                
+                // Location filter
+                if (locationFilter !== 'all') {
+                    const location = photo.dataset.location || 'others';
+                    show = show && location === locationFilter;
+                }
+                
+                // Media type filter
+                if (mediaFilter !== 'all') {
+                    const mediaType = photo.dataset.mediaType || 'photo';
+                    show = show && mediaType === mediaFilter;
+                }
+                
+                photo.style.display = show ? 'block' : 'none';
+                if (show) hasVisiblePhotos = true;
+            });
+            
+            // Auto-expand if filters are applied and there are visible photos
+            if (hasVisiblePhotos && (categoryFilter !== 'all' || locationFilter !== 'all' || mediaFilter !== 'all')) {
+                const content = document.getElementById(`album${year}`);
+                const button = content.previousElementSibling;
+                //const arrow = button.querySelector('.arrow');
+                content.classList.add('active');
+                //arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+    });
+    
+    // Sort years
+    // const accordion = document.querySelector('.album-accordion');
+    // if (sortFilter === 'oldest') {
+    //     yearSections.reverse().forEach(({ section }) => {
+    //         accordion.appendChild(section);
+    //     });
+    // } else {
+    //     yearSections.forEach(({ section }) => {
+    //         accordion.appendChild(section);
+    //     });
+    // }
+}
+
+function clearAlbumFilters() {
+    document.getElementById('albumYearFilter').value = 'all';
+    document.getElementById('albumCategoryFilter').value = 'all';
+    document.getElementById('albumPetFilter').value = 'cherry';
+    document.getElementById('albumLocationFilter').value = 'all';
+    document.getElementById('albumMediaFilter').value = 'all';
+    document.getElementById('albumSortFilter').value = 'newest';
+    
+    const years = ['2025', '2024', '2023', '2022', '2021'];
+    years.forEach(year => {
+        const content = document.getElementById(`album${year}`);
+        if (content) {
+            // Show the year section
+            content.style.display = 'block';
+            
+            // Collapse the year section
+            content.classList.remove('active');
+            const button = content.previousElementSibling;
+            if (button) {
+                const arrow = button.querySelector('.arrow');
+                if (arrow) {
+                    arrow.style.transform = 'rotate(0deg)';
+                }
+            }
+            
+            // Show all photos in this year
+            const photos = content.querySelectorAll('.photo-item');
+            photos.forEach(photo => {
+                photo.style.display = 'block';
+            });
+        }
+    });
+}
+
+function collapseAllAlbum() {
+    const years = ['2025', '2024', '2023', '2022', '2021'];
+    years.forEach(year => {
+        const content = document.getElementById(`album${year}`);
+        if (content) {
+            content.classList.remove('active');
+            const button = content.previousElementSibling;
+            if (button) {
+                const arrow = button.querySelector('.arrow');
+                if (arrow) {
+                    arrow.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+    });
 }
