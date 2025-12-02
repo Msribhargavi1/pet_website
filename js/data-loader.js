@@ -152,6 +152,107 @@ const DataLoader = {
         });
     },
 
+    // Load growth tracking
+    async loadGrowthTracking() {
+        try {
+            const response = await fetch('data/growth-tracking.json');
+            const data = await response.json();
+            this.displayGrowthTracking(data.growthRecords);
+        } catch (error) {
+            console.error('Error loading growth tracking, using fallback data:', error);
+            // Fallback data if fetch fails (for file:// protocol)
+            const fallbackData = [
+                {
+                    year: 2022,
+                    month: "December",
+                    age: "1 yr",
+                    height: 32,
+                    weight: 8.5,
+                    notes: "Puppy stage, rapid growth"
+                },
+                {
+                    year: 2023,
+                    month: "December",
+                    age: "2 yrs",
+                    height: 38,
+                    weight: 12.3,
+                    notes: "Healthy, active"
+                },
+                {
+                    year: 2024,
+                    month: "December",
+                    age: "3 yrs",
+                    height: 40,
+                    weight: 14.1,
+                    notes: "Slight weight gain, vet recommended exercise"
+                },
+                {
+                    year: 2025,
+                    month: "December",
+                    age: "4 yrs",
+                    height: 41,
+                    weight: 15.0,
+                    notes: "Stable growth, ideal condition"
+                }
+            ];
+            this.displayGrowthTracking(fallbackData);
+        }
+    },
+
+    displayGrowthTracking(records) {
+        const list = document.getElementById('trackingList');
+        const chart = document.getElementById('trackingChart');
+        
+        if (records.length > 0) {
+            list.innerHTML = '';
+            
+            // Create simple chart visualization
+            const maxWeight = Math.max(...records.map(r => r.weight));
+            const maxHeight = Math.max(...records.map(r => r.height));
+            
+            let chartHTML = '<h3>📊 Growth Progress Chart</h3>';
+            chartHTML += '<div class="chart-container">';
+            
+            records.forEach((record, index) => {
+                const weightPercent = (record.weight / maxWeight) * 100;
+                const heightPercent = (record.height / maxHeight) * 100;
+                
+                chartHTML += `
+                    <div class="chart-year">
+                        <div class="chart-label">${record.year}</div>
+                        <div class="chart-bars">
+                            <div class="chart-bar-group">
+                                <span class="bar-label">Weight: ${record.weight} kg</span>
+                                <div class="chart-bar weight-bar" style="width: ${weightPercent}%"></div>
+                            </div>
+                            <div class="chart-bar-group">
+                                <span class="bar-label">Height: ${record.height} cm</span>
+                                <div class="chart-bar height-bar" style="width: ${heightPercent}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            chartHTML += '</div>';
+            chart.innerHTML = chartHTML;
+            
+            // Display records
+            records.forEach(record => {
+                const item = document.createElement('div');
+                item.className = 'tracking-item';
+                item.innerHTML = `
+                    <p><strong>Date:</strong> ${record.month} ${record.year}</p>
+                    <p><strong>Age:</strong> ${record.age}</p>
+                    <p><strong>Height:</strong> ${record.height} cm</p>
+                    <p><strong>Weight:</strong> ${record.weight} kg</p>
+                    <p><strong>Notes:</strong> ${record.notes}</p>
+                `;
+                list.appendChild(item);
+            });
+        }
+    },
+
     // Load all data
     async loadAll() {
         await this.loadPetInfo();
@@ -159,6 +260,7 @@ const DataLoader = {
         await this.loadVaccinations();
         await this.loadTreats();
         await this.loadHospitals();
+        await this.loadGrowthTracking();
     }
 };
 

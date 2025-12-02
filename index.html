@@ -34,76 +34,103 @@
         <section class="album">
             <h2>📸 Album</h2>
             
-            <div class="album-year">
-                <h3 class="album-year-title">2025</h3>
-                <div class="photo-grid">
-                    <div class="photo-item">
-                        <img src="Album/2025/Image (5).jpg" alt="Cherry 2025">
-                        <p class="photo-caption">Cherry - 2025</p>
-                    </div>
-                    <div class="photo-item">
-                        <img src="Album/2025/Image (7).jpg" alt="Cherry 2025">
-                        <p class="photo-caption">Cherry - 2025</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="album-year">
-                <h3 class="album-year-title">2024</h3>
-                <div class="photo-grid">
-                    <div class="photo-item">
-                        <img src="Album/2024/Image (12).jpg" alt="Cherry 2024">
-                        <p class="photo-caption">Cherry - 2024</p>
-                    </div>
-                    <div class="photo-item">
-                        <img src="Album/2024/Image (7).jpg" alt="Cherry 2024">
-                        <p class="photo-caption">Cherry - 2024</p>
-                    </div>
-                    <div class="photo-item">
-                        <img src="Album/2024/Image (8).jpg" alt="Cherry 2024">
-                        <p class="photo-caption">Cherry - 2024</p>
+            <div class="album-accordion">
+                <div class="album-year-section">
+                    <button class="album-year-header" onclick="toggleAlbumYear('album2025')">
+                        <span>2025</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="album2025" class="album-year-content">
+                        <div class="photo-grid">
+                            <div class="photo-item">
+                                <img src="Album/2025/Image (5).jpg" alt="Cherry 2025">
+                                <p class="photo-caption">Cherry - 2025</p>
+                            </div>
+                            <div class="photo-item">
+                                <img src="Album/2025/Image (7).jpg" alt="Cherry 2025">
+                                <p class="photo-caption">Cherry - 2025</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="album-year">
-                <h3 class="album-year-title">2023</h3>
-                <div class="photo-grid">
-                    <div class="photo-item">
-                        <img src="Album/2023/Image (11).jpg" alt="Cherry 2023">
-                        <p class="photo-caption">Cherry - 2023</p>
+                <div class="album-year-section">
+                    <button class="album-year-header" onclick="toggleAlbumYear('album2024')">
+                        <span>2024</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="album2024" class="album-year-content">
+                        <div class="photo-grid">
+                            <div class="photo-item">
+                                <img src="Album/2024/Image (12).jpg" alt="Cherry 2024">
+                                <p class="photo-caption">Cherry - 2024</p>
+                            </div>
+                            <div class="photo-item">
+                                <img src="Album/2024/Image (7).jpg" alt="Cherry 2024">
+                                <p class="photo-caption">Cherry - 2024</p>
+                            </div>
+                            <div class="photo-item">
+                                <img src="Album/2024/Image (8).jpg" alt="Cherry 2024">
+                                <p class="photo-caption">Cherry - 2024</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="album-year">
-                <h3 class="album-year-title">2022</h3>
-                <div class="photo-grid">
-                    <div class="photo-item">
-                        <img src="Album/2022/Image (13).jpg" alt="Cherry 2022">
-                        <p class="photo-caption">Cherry - 2022</p>
-                    </div>
-                    <div class="photo-item">
-                        <img src="Album/2022/Image (17).jpg" alt="Cherry 2022">
-                        <p class="photo-caption">Cherry - 2022</p>
+                <div class="album-year-section">
+                    <button class="album-year-header" onclick="toggleAlbumYear('album2023')">
+                        <span>2023</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="album2023" class="album-year-content">
+                        <div class="photo-grid">
+                            <div class="photo-item">
+                                <img src="Album/2023/Image (11).jpg" alt="Cherry 2023">
+                                <p class="photo-caption">Cherry - 2023</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="album-year">
-                <h3 class="album-year-title">2021</h3>
-                <div class="photo-grid">
-                    <div class="photo-item">
-                        <img src="Album/2021/Image (14).jpg" alt="Cherry 2021">
-                        <p class="photo-caption">Cherry as a puppy - 2021</p>
+                <div class="album-year-section">
+                    <button class="album-year-header" onclick="toggleAlbumYear('album2022')">
+                        <span>2022</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="album2022" class="album-year-content">
+                        <div class="photo-grid">
+                            <div class="photo-item">
+                                <img src="Album/2022/Image (13).jpg" alt="Cherry 2022">
+                                <p class="photo-caption">Cherry - 2022</p>
+                            </div>
+                            <div class="photo-item">
+                                <img src="Album/2022/Image (17).jpg" alt="Cherry 2022">
+                                <p class="photo-caption">Cherry - 2022</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="photo-item">
-                        <img src="Album/2021/Image (15).jpg" alt="Cherry 2021">
-                        <p class="photo-caption">Cherry as a puppy - 2021</p>
-                    </div>
-                    <div class="photo-item">
-                        <img src="Album/2021/Image (16).jpg" alt="Cherry 2021">
-                        <p class="photo-caption">Cherry as a puppy - 2021</p>
+                </div>
+
+                <div class="album-year-section">
+                    <button class="album-year-header" onclick="toggleAlbumYear('album2021')">
+                        <span>2021</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="album2021" class="album-year-content">
+                        <div class="photo-grid">
+                            <div class="photo-item">
+                                <img src="Album/2021/Image (14).jpg" alt="Cherry 2021">
+                                <p class="photo-caption">Cherry as a puppy - 2021</p>
+                            </div>
+                            <div class="photo-item">
+                                <img src="Album/2021/Image (15).jpg" alt="Cherry 2021">
+                                <p class="photo-caption">Cherry as a puppy - 2021</p>
+                            </div>
+                            <div class="photo-item">
+                                <img src="Album/2021/Image (16).jpg" alt="Cherry 2021">
+                                <p class="photo-caption">Cherry as a puppy - 2021</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -255,116 +282,151 @@
                 </ul>
             </div>
 
-            <div class="diet-grid">
-                <div class="day-card">
-                    <h3>📅 DAY 1</h3>
-                    <div class="meal">
-                        <h4>Breakfast:</h4>
-                        <p>Chicken – ½ cup<br>Rice – ½ cup<br>Carrot – 2 tbsp<br><strong>Add:</strong> 1 tsp coconut oil</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Lunch:</h4>
-                        <p>Sweet potato – ½ cup<br>Curd – 2 tbsp</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Dinner:</h4>
-                        <p>Fish – ½ cup<br>Pumpkin – 2 tbsp<br><strong>Add:</strong> A pinch of turmeric</p>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>📅 DAY 2</h3>
-                    <div class="meal">
-                        <h4>Breakfast:</h4>
-                        <p>Egg whites – 2<br>Oats – ½ cup</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Lunch:</h4>
-                        <p>Chicken – ½ cup<br>Green beans – 2 tbsp</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Dinner:</h4>
-                        <p>Fish – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> 1 tsp coconut oil<br>2 blueberries</p>
+            <div class="diet-accordion">
+                <div class="diet-day-section">
+                    <button class="diet-day-header" onclick="toggleDietDay('day1')">
+                        <span>📅 DAY 1</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="day1" class="diet-day-content">
+                        <div class="meal">
+                            <h4>Breakfast:</h4>
+                            <p>Chicken – ½ cup<br>Rice – ½ cup<br>Carrot – 2 tbsp<br><strong>Add:</strong> 1 tsp coconut oil</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Lunch:</h4>
+                            <p>Sweet potato – ½ cup<br>Curd – 2 tbsp</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Dinner:</h4>
+                            <p>Fish – ½ cup<br>Pumpkin – 2 tbsp<br><strong>Add:</strong> A pinch of turmeric</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="day-card">
-                    <h3>📅 DAY 3</h3>
-                    <div class="meal">
-                        <h4>Breakfast:</h4>
-                        <p>Chicken – ½ cup<br>Rice – ½ cup<br>Pumpkin – 2 tbsp</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Lunch:</h4>
-                        <p>Sweet potato – ½ cup<br>Curd – 2 tbsp</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Dinner:</h4>
-                        <p>Fish – ½ cup<br>Oats – ½ cup<br>Carrot – 2 tbsp<br><strong>Add:</strong> A pinch of turmeric</p>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>📅 DAY 4</h3>
-                    <div class="meal">
-                        <h4>Breakfast:</h4>
-                        <p>Fish – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> 1 tsp coconut oil</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Lunch:</h4>
-                        <p>Cottage cheese – ¼ cup<br>Green beans – 2 tbsp</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Dinner:</h4>
-                        <p>Egg whites – 2<br>Sweet potato – ½ cup<br><strong>Add:</strong> 2 blueberries</p>
+                <div class="diet-day-section">
+                    <button class="diet-day-header" onclick="toggleDietDay('day2')">
+                        <span>📅 DAY 2</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="day2" class="diet-day-content">
+                        <div class="meal">
+                            <h4>Breakfast:</h4>
+                            <p>Egg whites – 2<br>Oats – ½ cup</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Lunch:</h4>
+                            <p>Chicken – ½ cup<br>Green beans – 2 tbsp</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Dinner:</h4>
+                            <p>Fish – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> 1 tsp coconut oil<br>2 blueberries</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="day-card">
-                    <h3>📅 DAY 5</h3>
-                    <div class="meal">
-                        <h4>Breakfast:</h4>
-                        <p>Chicken – ½ cup<br>Oats – ½ cup<br>Pumpkin – 2 tbsp</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Lunch:</h4>
-                        <p>Sweet potato – ½ cup<br>Curd – 2 tbsp</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Dinner:</h4>
-                        <p>Fish – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> A pinch of turmeric</p>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>📅 DAY 6</h3>
-                    <div class="meal">
-                        <h4>Breakfast:</h4>
-                        <p>Egg whites – 2<br>Rice – ½ cup<br>Carrot – 2 tbsp<br><strong>Add:</strong> 1 tsp coconut oil</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Lunch:</h4>
-                        <p>Chicken – ½ cup<br>Pumpkin – 2 tbsp</p>
-                    </div>
-                    <div class="meal">
-                        <h4>Dinner:</h4>
-                        <p>Fish – ½ cup<br>Sweet potato – ½ cup<br><strong>Add:</strong> 2 blueberries</p>
+                <div class="diet-day-section">
+                    <button class="diet-day-header" onclick="toggleDietDay('day3')">
+                        <span>📅 DAY 3</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="day3" class="diet-day-content">
+                        <div class="meal">
+                            <h4>Breakfast:</h4>
+                            <p>Chicken – ½ cup<br>Rice – ½ cup<br>Pumpkin – 2 tbsp</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Lunch:</h4>
+                            <p>Sweet potato – ½ cup<br>Curd – 2 tbsp</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Dinner:</h4>
+                            <p>Fish – ½ cup<br>Oats – ½ cup<br>Carrot – 2 tbsp<br><strong>Add:</strong> A pinch of turmeric</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="day-card">
-                    <h3>📅 DAY 7</h3>
-                    <div class="meal">
-                        <h4>Breakfast:</h4>
-                        <p>Fish – ½ cup<br>Oats – ½ cup<br>Spinach (very small amount) – 1 tbsp</p>
+                <div class="diet-day-section">
+                    <button class="diet-day-header" onclick="toggleDietDay('day4')">
+                        <span>📅 DAY 4</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="day4" class="diet-day-content">
+                        <div class="meal">
+                            <h4>Breakfast:</h4>
+                            <p>Fish – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> 1 tsp coconut oil</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Lunch:</h4>
+                            <p>Cottage cheese – ¼ cup<br>Green beans – 2 tbsp</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Dinner:</h4>
+                            <p>Egg whites – 2<br>Sweet potato – ½ cup<br><strong>Add:</strong> 2 blueberries</p>
+                        </div>
                     </div>
-                    <div class="meal">
-                        <h4>Lunch:</h4>
-                        <p>Curd – 2 tbsp<br>Sweet potato – ½ cup</p>
+                </div>
+
+                <div class="diet-day-section">
+                    <button class="diet-day-header" onclick="toggleDietDay('day5')">
+                        <span>📅 DAY 5</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="day5" class="diet-day-content">
+                        <div class="meal">
+                            <h4>Breakfast:</h4>
+                            <p>Chicken – ½ cup<br>Oats – ½ cup<br>Pumpkin – 2 tbsp</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Lunch:</h4>
+                            <p>Sweet potato – ½ cup<br>Curd – 2 tbsp</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Dinner:</h4>
+                            <p>Fish – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> A pinch of turmeric</p>
+                        </div>
                     </div>
-                    <div class="meal">
-                        <h4>Dinner:</h4>
-                        <p>Chicken – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> A pinch of turmeric<br><strong>Add:</strong> 1 tsp coconut oil</p>
+                </div>
+
+                <div class="diet-day-section">
+                    <button class="diet-day-header" onclick="toggleDietDay('day6')">
+                        <span>📅 DAY 6</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="day6" class="diet-day-content">
+                        <div class="meal">
+                            <h4>Breakfast:</h4>
+                            <p>Egg whites – 2<br>Rice – ½ cup<br>Carrot – 2 tbsp<br><strong>Add:</strong> 1 tsp coconut oil</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Lunch:</h4>
+                            <p>Chicken – ½ cup<br>Pumpkin – 2 tbsp</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Dinner:</h4>
+                            <p>Fish – ½ cup<br>Sweet potato – ½ cup<br><strong>Add:</strong> 2 blueberries</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="diet-day-section">
+                    <button class="diet-day-header" onclick="toggleDietDay('day7')">
+                        <span>📅 DAY 7</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="day7" class="diet-day-content">
+                        <div class="meal">
+                            <h4>Breakfast:</h4>
+                            <p>Fish – ½ cup<br>Oats – ½ cup<br>Spinach (very small amount) – 1 tbsp</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Lunch:</h4>
+                            <p>Curd – 2 tbsp<br>Sweet potato – ½ cup</p>
+                        </div>
+                        <div class="meal">
+                            <h4>Dinner:</h4>
+                            <p>Chicken – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> A pinch of turmeric<br><strong>Add:</strong> 1 tsp coconut oil</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -520,7 +582,9 @@
         </section>
     </div>
 
+    <script src="js/config.js"></script>
     <script src="js/data-loader.js"></script>
+    <script src="js/ai-assistant.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

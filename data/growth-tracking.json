@@ -1,0 +1,36 @@
+{
+  "growthRecords": [
+    {
+      "year": 2022,
+      "month": "December",
+      "age": "1 yr",
+      "height": 32,
+      "weight": 8.5,
+      "notes": "Puppy stage, rapid growth"
+    },
+    {
+      "year": 2023,
+      "month": "December",
+      "age": "2 yrs",
+      "height": 38,
+      "weight": 12.3,
+      "notes": "Healthy, active"
+    },
+    {
+      "year": 2024,
+      "month": "December",
+      "age": "3 yrs",
+      "height": 40,
+      "weight": 14.1,
+      "notes": "Slight weight gain, vet recommended exercise"
+    },
+    {
+      "year": 2025,
+      "month": "December",
+      "age": "4 yrs",
+      "height": 41,
+      "weight": 15.0,
+      "notes": "Stable growth, ideal condition"
+    }
+  ]
+}

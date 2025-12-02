@@ -230,6 +230,19 @@ window.addEventListener('load', function() {
     loadDiet();
     loadMedicines();
     loadNextDue();
+    
+    // Add event listeners to symptom checkboxes
+    const symptomCheckboxes = document.querySelectorAll('.symptoms-grid input[type="checkbox"]');
+    symptomCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            // Hide results immediately when any checkbox is unchecked
+            if (!this.checked) {
+                const result = document.getElementById('symptomsResult');
+                result.className = 'symptoms-result';
+                result.innerHTML = '';
+            }
+        });
+    });
 });
 
 
@@ -241,19 +254,19 @@ function addTracking() {
     
     if (date && weight && height) {
         const trackingList = document.getElementById('trackingList');
-        const chart = document.getElementById('trackingChart');
         
-        if (chart.children[0]?.tagName === 'P') {
-            chart.innerHTML = '<p>Growth chart visualization would appear here</p>';
-        }
+        const dateObj = new Date(date);
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
         
         const item = document.createElement('div');
         item.className = 'tracking-item';
         item.innerHTML = `
-            <p><strong>Date:</strong> ${new Date(date).toLocaleDateString()}</p>
-            <p><strong>Weight:</strong> ${weight} kg</p>
+            <p><strong>Date:</strong> ${monthNames[dateObj.getMonth()]} ${dateObj.getFullYear()}</p>
             <p><strong>Height:</strong> ${height} cm</p>
-            <button class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+            <p><strong>Weight:</strong> ${weight} kg</p>
+            <p><strong>Notes:</strong> <input type="text" placeholder="Add notes..." class="tracking-notes" /></p>
+            <button class="remove-btn" onclick="this.parentElement.remove(); saveTracking();">Remove</button>
         `;
         trackingList.appendChild(item);
         
@@ -326,7 +339,8 @@ function checkSymptoms() {
     const result = document.getElementById('symptomsResult');
     
     if (symptoms.length === 0) {
-        alert('Please select at least one symptom');
+        result.className = 'symptoms-result';
+        result.innerHTML = '';
         return;
     }
     
@@ -457,49 +471,36 @@ function saveFamilyMembers() {
     localStorage.setItem('familyMembers', JSON.stringify(items));
 }
 
-// AI Chatbot
-function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const message = input.value.trim();
+// AI Chatbot functions are now in ai-assistant.js
+
+
+// Toggle diet day dropdown
+function toggleDietDay(dayId) {
+    const content = document.getElementById(dayId);
+    const button = content.previousElementSibling;
+    const arrow = button.querySelector('.arrow');
     
-    if (message) {
-        const chatMessages = document.getElementById('chatMessages');
-        
-        // Add user message
-        const userMsg = document.createElement('div');
-        userMsg.className = 'user-message';
-        userMsg.textContent = message;
-        chatMessages.appendChild(userMsg);
-        
-        input.value = '';
-        
-        // Simulate AI response
-        setTimeout(() => {
-            const botMsg = document.createElement('div');
-            botMsg.className = 'bot-message';
-            botMsg.textContent = getAIResponse(message);
-            chatMessages.appendChild(botMsg);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }, 1000);
-        
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+    if (content.classList.contains('active')) {
+        content.classList.remove('active');
+        arrow.style.transform = 'rotate(0deg)';
+    } else {
+        content.classList.add('active');
+        arrow.style.transform = 'rotate(180deg)';
     }
 }
 
-function getAIResponse(message) {
-    const msg = message.toLowerCase();
+
+// Toggle album year dropdown
+function toggleAlbumYear(yearId) {
+    const content = document.getElementById(yearId);
+    const button = content.previousElementSibling;
+    const arrow = button.querySelector('.arrow');
     
-    if (msg.includes('diet') || msg.includes('food')) {
-        return "Cherry's diet should include chicken, fish, rice, sweet potato, and vegetables. Avoid red meat, organ meat, and spicy foods. Check the 7-Day Diet Chart section for detailed meal plans!";
-    } else if (msg.includes('vaccine') || msg.includes('vaccination')) {
-        return "Cherry's last vaccination was in November 2025. Regular vaccinations include immunity boosters, rabies, and deworming. Check the Medical History section for complete records.";
-    } else if (msg.includes('weight') || msg.includes('exercise')) {
-        return "Golden Retrievers need regular exercise - at least 1-2 hours daily. Monitor Cherry's weight regularly and adjust diet accordingly. Use the Growth Tracking section to log weight changes.";
-    } else if (msg.includes('symptom') || msg.includes('sick') || msg.includes('health')) {
-        return "If Cherry shows any concerning symptoms, use the Symptoms Checker tool. For critical symptoms like difficulty breathing or seizures, contact your vet immediately at 8978833504.";
-    } else if (msg.includes('pss') || msg.includes('liver')) {
-        return "Cherry has a history of Portosystemic Shunt (PSS). This requires a special low-protein diet and regular monitoring. Always consult Dr. Hussain for PSS-related concerns.";
+    if (content.classList.contains('active')) {
+        content.classList.remove('active');
+        arrow.style.transform = 'rotate(0deg)';
     } else {
-        return "I'm here to help with Cherry's health, diet, vaccinations, and care. Ask me about specific topics like diet plans, vaccination schedules, or health concerns!";
+        content.classList.add('active');
+        arrow.style.transform = 'rotate(180deg)';
     }
 }
