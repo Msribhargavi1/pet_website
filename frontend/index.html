@@ -87,16 +87,6 @@
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="albumMediaFilter">📁 Media Type:</label>
-                    <select id="albumMediaFilter" onchange="applyAlbumFilters()" class="filter-select">
-                        <option value="all">All Media</option>
-                        <option value="photo">Photo</option>
-                        <option value="video">Video</option>
-                        <option value="document">Document</option>
-                        <option value="mixed">Mixed</option>
-                    </select>
-                </div>
-                <div class="filter-group">
                     <label for="albumSortFilter">🔽 Sort:</label>
                     <select id="albumSortFilter" onchange="applyAlbumFilters()" class="filter-select">
                         <option value="newest">Newest → Oldest</option>
@@ -439,6 +429,9 @@
                         <span class="arrow">▼</span>
                     </button>
                     <div id="dietPlan" class="diet-day-content">
+                        <div class="diet-scroller-container">
+                            <button class="scroll-btn scroll-left" onclick="scrollDietPlan('left')">‹</button>
+                            <div class="diet-days-scroller">
                         <div class="day-group">
                             <h3>DAY 1</h3>
                             <div class="meal">
@@ -549,6 +542,9 @@
                                 <h4>Dinner:</h4>
                                 <p>Chicken – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> A pinch of turmeric<br><strong>Add:</strong> 1 tsp coconut oil</p>
                             </div>
+                        </div>
+                            </div>
+                            <button class="scroll-btn scroll-right" onclick="scrollDietPlan('right')">›</button>
                         </div>
                     </div>
                 </div>

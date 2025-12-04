@@ -489,6 +489,18 @@ function toggleDietDay(dayId) {
     }
 }
 
+// Scroll diet plan days
+function scrollDietPlan(direction) {
+    const scroller = document.querySelector('.diet-days-scroller');
+    const scrollAmount = 320; // Width of one day card plus gap
+    
+    if (direction === 'left') {
+        scroller.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+        scroller.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+}
+
 
 // Toggle album year dropdown (starts collapsed)
 function toggleAlbumYear(yearId) {
@@ -822,7 +834,6 @@ function applyAlbumFilters() {
     const categoryFilter = document.getElementById('albumCategoryFilter').value;
     const petFilter = document.getElementById('albumPetFilter').value;
     const locationFilter = document.getElementById('albumLocationFilter').value;
-    const mediaFilter = document.getElementById('albumMediaFilter').value;
     const sortFilter = document.getElementById('albumSortFilter').value;
     
     const years = ['2025', '2024', '2023', '2022', '2021'];
@@ -883,38 +894,32 @@ function applyAlbumFilters() {
                     show = show && location === locationFilter;
                 }
                 
-                // Media type filter
-                if (mediaFilter !== 'all') {
-                    const mediaType = photo.dataset.mediaType || 'photo';
-                    show = show && mediaType === mediaFilter;
-                }
-                
                 photo.style.display = show ? 'block' : 'none';
                 if (show) hasVisiblePhotos = true;
             });
             
             // Auto-expand if filters are applied and there are visible photos
-            if (hasVisiblePhotos && (categoryFilter !== 'all' || locationFilter !== 'all' || mediaFilter !== 'all')) {
+            if (hasVisiblePhotos && (categoryFilter !== 'all' || locationFilter !== 'all')) {
                 const content = document.getElementById(`album${year}`);
                 const button = content.previousElementSibling;
-                //const arrow = button.querySelector('.arrow');
                 content.classList.add('active');
-                //arrow.style.transform = 'rotate(180deg)';
             }
         }
     });
     
     // Sort years
-    // const accordion = document.querySelector('.album-accordion');
-    // if (sortFilter === 'oldest') {
-    //     yearSections.reverse().forEach(({ section }) => {
-    //         accordion.appendChild(section);
-    //     });
-    // } else {
-    //     yearSections.forEach(({ section }) => {
-    //         accordion.appendChild(section);
-    //     });
-    // }
+    const accordion = document.querySelector('.album-accordion');
+    if (accordion && yearSections.length > 0) {
+        if (sortFilter === 'oldest') {
+            yearSections.reverse().forEach(({ section }) => {
+                accordion.appendChild(section);
+            });
+        } else {
+            yearSections.forEach(({ section }) => {
+                accordion.appendChild(section);
+            });
+        }
+    }
 }
 
 function clearAlbumFilters() {
@@ -922,7 +927,6 @@ function clearAlbumFilters() {
     document.getElementById('albumCategoryFilter').value = 'all';
     document.getElementById('albumPetFilter').value = 'cherry';
     document.getElementById('albumLocationFilter').value = 'all';
-    document.getElementById('albumMediaFilter').value = 'all';
     document.getElementById('albumSortFilter').value = 'newest';
     
     const years = ['2025', '2024', '2023', '2022', '2021'];

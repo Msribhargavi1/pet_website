@@ -283,12 +283,76 @@ h2 {
     transition: max-height 0.5s ease-in, opacity 0.3s ease-in;
 }
 
+.diet-scroller-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.diet-days-scroller {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 10px 0;
+    flex: 1;
+    scrollbar-width: thin;
+    scrollbar-color: #764ba2 #f0f0f0;
+}
+
+.diet-days-scroller::-webkit-scrollbar {
+    height: 8px;
+}
+
+.diet-days-scroller::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.diet-days-scroller::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    border-radius: 10px;
+}
+
+.diet-days-scroller::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.scroll-btn {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(118, 75, 162, 0.3);
+}
+
+.scroll-btn:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(118, 75, 162, 0.5);
+}
+
+.scroll-btn:active {
+    transform: scale(0.95);
+}
+
 .day-group {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     padding: 15px;
     border-radius: 10px;
-    margin-bottom: 20px;
     border-left: 4px solid #764ba2;
+    min-width: 300px;
+    flex-shrink: 0;
 }
 
 .day-group h3 {
@@ -555,6 +619,20 @@ h2 {
     .card-grid,
     .diet-container {
         grid-template-columns: 1fr;
+    }
+    
+    .day-group {
+        min-width: 280px;
+    }
+    
+    .scroll-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+    
+    .diet-scroller-container {
+        gap: 5px;
     }
 }
 
