@@ -1,2 +1,15 @@
 # Kiro MCP Manager - Sensitive configuration files
 .kiro/settings/
+
+# SQLite Database
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+petcare.db
+
+# Backend Build
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
