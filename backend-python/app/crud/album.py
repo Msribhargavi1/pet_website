@@ -18,6 +18,15 @@ def get_by_pet_id_and_year(db: Session, pet_id: int, year: int) -> List[Album]:
         Album.year == year
     ).all()
 
+def get_by_year(db: Session, year: int) -> List[Album]:
+    return db.query(Album).filter(Album.year == year).all()
+
+def get_by_category(db: Session, category: str) -> List[Album]:
+    return db.query(Album).filter(Album.category == category).all()
+
+def get_by_media_type(db: Session, media_type: str) -> List[Album]:
+    return db.query(Album).filter(Album.media_type == media_type).all()
+
 def create(db: Session, album: AlbumCreate) -> Album:
     db_album = Album(**album.model_dump())
     db.add(db_album)

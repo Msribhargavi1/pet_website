@@ -18,6 +18,21 @@ def get_album_by_pet(pet_id: int, db: Session = Depends(get_db)):
     """Get album by pet ID"""
     return crud.get_by_pet_id(db, pet_id)
 
+@router.get("/year/{year}", response_model=List[AlbumResponse])
+def get_album_by_year(year: int, db: Session = Depends(get_db)):
+    """Get album photos by year"""
+    return crud.get_by_year(db, year)
+
+@router.get("/category/{category}", response_model=List[AlbumResponse])
+def get_album_by_category(category: str, db: Session = Depends(get_db)):
+    """Get album photos by category"""
+    return crud.get_by_category(db, category)
+
+@router.get("/media-type/{media_type}", response_model=List[AlbumResponse])
+def get_album_by_media_type(media_type: str, db: Session = Depends(get_db)):
+    """Get album photos by media type (photo/video)"""
+    return crud.get_by_media_type(db, media_type)
+
 @router.get("/pet/{pet_id}/year/{year}", response_model=List[AlbumResponse])
 def get_album_by_pet_and_year(pet_id: int, year: int, db: Session = Depends(get_db)):
     """Get album by pet ID and year"""

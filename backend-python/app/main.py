@@ -9,7 +9,8 @@ from app.routers import (
     vaccination,
     growth_tracking,
     diet_plan,
-    album
+    album,
+    family_member
 )
 
 # Create database tables
@@ -40,6 +41,7 @@ app.include_router(vaccination.router)
 app.include_router(growth_tracking.router)
 app.include_router(diet_plan.router)
 app.include_router(album.router)
+app.include_router(family_member.router)
 
 @app.get("/")
 def root():
