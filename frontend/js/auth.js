@@ -4,7 +4,8 @@ const demoUsers = [
     { id: 2, name: 'Pet Owner', email: 'owner@kiropets.com', phone: '8888888888', password: 'owner123', role: 'owner' },
     { id: 3, name: 'Dr. Veterinarian', email: 'vet@kiropets.com', phone: '7777777777', password: 'vet123', role: 'vet' },
     { id: 4, name: 'Srihari', email: 'srihari12@gmail.com', phone: '9876543210', password: 'srihari123', role: 'owner' },
-    { id: 5, name: 'Srinivasulu', email: 'vasulu.cnu@gmail.com', phone: '9123456789', password: 'vasulu123', role: 'admin' }
+    { id: 5, name: 'Srinivasulu', email: 'vasulu.cnu@gmail.com', phone: '9123456789', password: 'vasulu123', role: 'admin' },
+    { id: 6, name: 'Sri Bhargavi', email: 'sribhargavi427@gmail.com', phone: '8978833504', password: 'admin123', role: 'admin' }
 ];
 
 // Form Navigation
