@@ -836,11 +836,14 @@ function applyAlbumFilters() {
     const locationFilter = document.getElementById('albumLocationFilter').value;
     const sortFilter = document.getElementById('albumSortFilter').value;
     
+    // Hide placeholder and show album accordion
+    const placeholder = document.getElementById('albumPlaceholder');
+    const accordion = document.querySelector('.album-accordion');
+    if (placeholder) placeholder.style.display = 'none';
+    if (accordion) accordion.style.display = 'block';
+    
     const years = ['2025', '2024', '2023', '2022', '2021'];
     const yearSections = [];
-    
-    // First collapse all
-    //collapseAllAlbum();
     
     // Collect all year sections
     years.forEach(year => {
@@ -853,17 +856,14 @@ function applyAlbumFilters() {
     // Filter by year
     yearSections.forEach(({ year, section }) => {
         if (yearFilter === 'all' || year === yearFilter) {
+            section.style.display = 'block';
             document.getElementById(`album${year}`).style.display = 'block';
             
-            // Auto-expand if specific year is selected
-            if (yearFilter !== 'all') {
-                const content = document.getElementById(`album${year}`);
-                const button = content.previousElementSibling;
-                //const arrow = button.querySelector('.arrow');
-                content.classList.add('active');
-                //arrow.style.transform = 'rotate(180deg)';
-            }
+            // Auto-expand the year section
+            const content = document.getElementById(`album${year}`);
+            content.classList.add('active');
         } else {
+            section.style.display = 'none';
             document.getElementById(`album${year}`).style.display = 'none';
         }
     });
@@ -908,7 +908,6 @@ function applyAlbumFilters() {
     });
     
     // Sort years
-    const accordion = document.querySelector('.album-accordion');
     if (accordion && yearSections.length > 0) {
         if (sortFilter === 'oldest') {
             yearSections.reverse().forEach(({ section }) => {
@@ -923,21 +922,29 @@ function applyAlbumFilters() {
 }
 
 function clearAlbumFilters() {
+    // Reset all filter dropdowns
     document.getElementById('albumYearFilter').value = 'all';
     document.getElementById('albumCategoryFilter').value = 'all';
     document.getElementById('albumPetFilter').value = 'cherry';
     document.getElementById('albumLocationFilter').value = 'all';
     document.getElementById('albumSortFilter').value = 'newest';
     
+    // Show placeholder and hide album accordion
+    const placeholder = document.getElementById('albumPlaceholder');
+    const accordion = document.querySelector('.album-accordion');
+    if (placeholder) placeholder.style.display = 'block';
+    if (accordion) accordion.style.display = 'none';
+    
+    // Reset all year sections
     const years = ['2025', '2024', '2023', '2022', '2021'];
     years.forEach(year => {
         const content = document.getElementById(`album${year}`);
         if (content) {
-            // Show the year section
+            const section = content.parentElement;
+            if (section) section.style.display = 'block';
             content.style.display = 'block';
-            
-            // Collapse the year section
             content.classList.remove('active');
+            
             const button = content.previousElementSibling;
             if (button) {
                 const arrow = button.querySelector('.arrow');
@@ -946,7 +953,7 @@ function clearAlbumFilters() {
                 }
             }
             
-            // Show all photos in this year
+            // Show all photos
             const photos = content.querySelectorAll('.photo-item');
             photos.forEach(photo => {
                 photo.style.display = 'block';
@@ -971,3 +978,121 @@ function collapseAllAlbum() {
         }
     });
 }
+
+
+// Simple Album Show/Hide Functions
+function showAlbumPhotos() {
+    const placeholder = document.getElementById('albumPlaceholder');
+    const accordion = document.querySelector('.album-accordion');
+    
+    if (placeholder) placeholder.style.display = 'none';
+    if (accordion) accordion.style.display = 'block';
+    
+    // Expand all year sections
+    const years = ['2025', '2024', '2023', '2022', '2021'];
+    years.forEach(year => {
+        const content = document.getElementById(`album${year}`);
+        if (content) {
+            content.classList.add('active');
+            const section = content.parentElement;
+            if (section) section.style.display = 'block';
+        }
+    });
+}
+
+function hideAlbumPhotos() {
+    const placeholder = document.getElementById('albumPlaceholder');
+    const accordion = document.querySelector('.album-accordion');
+    
+    if (placeholder) placeholder.style.display = 'block';
+    if (accordion) accordion.style.display = 'none';
+    
+    // Collapse all year sections
+    const years = ['2025', '2024', '2023', '2022', '2021'];
+    years.forEach(year => {
+        const content = document.getElementById(`album${year}`);
+        if (content) {
+            content.classList.remove('active');
+        }
+    });
+}
+
+
+// Authentication Functions
+function checkAuth() {
+    const session = localStorage.getItem('userSession');
+    if (!session) {
+        // Redirect to login if not authenticated
+        window.location.href = 'login.html';
+        return null;
+    }
+    return JSON.parse(session);
+}
+
+function initUserSession() {
+    const session = checkAuth();
+    if (session) {
+        // Update user bar
+        document.getElementById('userName').textContent = session.name;
+        const roleElement = document.getElementById('userRole');
+        roleElement.textContent = session.role.charAt(0).toUpperCase() + session.role.slice(1);
+        
+        // Add role class to body for CSS-based visibility
+        document.body.classList.add(`role-${session.role}`);
+        
+        // Add role-specific styling
+        if (session.role === 'admin') {
+            roleElement.classList.add('admin');
+        } else if (session.role === 'vet') {
+            roleElement.classList.add('vet');
+        }
+    }
+}
+
+function handleLogout() {
+    if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('userSession');
+        window.location.href = 'login.html';
+    }
+}
+
+// Get current user role
+function getCurrentUserRole() {
+    const session = localStorage.getItem('userSession');
+    if (session) {
+        return JSON.parse(session).role;
+    }
+    return null;
+}
+
+// Check if user has permission
+function hasPermission(requiredRole) {
+    const userRole = getCurrentUserRole();
+    if (!userRole) return false;
+    
+    const roleHierarchy = {
+        'admin': 3,
+        'vet': 2,
+        'owner': 1
+    };
+    
+    return roleHierarchy[userRole] >= roleHierarchy[requiredRole];
+}
+
+// Initialize auth on page load
+document.addEventListener('DOMContentLoaded', () => {
+    // Skip auth check for demo - comment out the next line to enable auth
+    // initUserSession();
+    
+    // For demo, show default user
+    const userBar = document.getElementById('userBar');
+    if (userBar) {
+        const session = localStorage.getItem('userSession');
+        if (session) {
+            initUserSession();
+        } else {
+            document.getElementById('userName').textContent = 'Guest';
+            document.getElementById('userRole').textContent = 'Demo Mode';
+        }
+    }
+});

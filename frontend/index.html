@@ -1,863 +1,1143 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-9">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cherry - The Golden Retriever</title>
+    <title>PetCare - Dog Health Management</title>
     <link rel="stylesheet" href="css/styles.css">
-    
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+    <!-- User Info Bar -->
+    <div id="userBar" class="user-bar">
+        <div class="user-info">
+            <span class="logo">🐾 PetCare</span>
+            <span class="user-greeting">Welcome, <strong id="userName">Guest</strong></span>
+        </div>
+        <div class="user-actions">
+            <button onclick="navigateTo('settings')" class="icon-btn" title="Settings">⚙️</button>
+            <button onclick="handleLogout()" class="logout-btn">🚪 Logout</button>
+        </div>
+    </div>
+
+    <div class="app-layout">
+        <!-- Left Sidebar Navigation -->
+        <nav class="sidebar-nav">
+            <div class="sidebar-header">
+                <span class="sidebar-logo">🐾</span>
+                <span class="sidebar-title">PetTrack</span>
+            </div>
+            <div class="nav-items">
+                <button class="nav-item active" onclick="navigateTo('dashboard')" data-screen="dashboard">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label">Home</span>
+                </button>
+                <button class="nav-item" onclick="navigateTo('album')" data-screen="album">
+                    <span class="nav-icon">📸</span>
+                    <span class="nav-label">Album</span>
+                </button>
+                <button class="nav-item" onclick="navigateTo('hobbies')" data-screen="hobbies">
+                    <span class="nav-icon">🎾</span>
+                    <span class="nav-label">Hobbies</span>
+                </button>
+                <button class="nav-item" onclick="navigateTo('treats')" data-screen="treats">
+                    <span class="nav-icon">🍖</span>
+                    <span class="nav-label">Treats</span>
+                </button>
+                <button class="nav-item" onclick="navigateTo('vaccinations')" data-screen="vaccinations">
+                    <span class="nav-icon">💉</span>
+                    <span class="nav-label">Vaccines</span>
+                </button>
+                <button class="nav-item" onclick="navigateTo('hospitals')" data-screen="hospitals">
+                    <span class="nav-icon">🏥</span>
+                    <span class="nav-label">Hospitals</span>
+                </button>
+                <button class="nav-item" onclick="navigateTo('medical')" data-screen="medical">
+                    <span class="nav-icon">📜</span>
+                    <span class="nav-label">History</span>
+                </button>
+                <button class="nav-item" onclick="navigateTo('ai-bot')" data-screen="ai-bot">
+                    <span class="nav-icon">🤖</span>
+                    <span class="nav-label">AI Bot</span>
+                </button>
+            </div>
+            <div class="sidebar-footer">
+                <button class="nav-item" onclick="navigateTo('settings')" data-screen="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-label">Settings</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- ========== DASHBOARD SCREEN ========== -->
+            <div id="screen-dashboard" class="screen active">
+                <div class="screen-header">
+                    <h1>🏠 PetTrack Home</h1>
+                </div>
+                
+                <!-- Dog Cards -->
+                <div class="dog-cards-section">
+                    <h2>My Dogs</h2>
+                    <div class="dog-cards">
+                        <div class="dog-card" onclick="navigateTo('dog-profile', 'cherry')">
+                            <img src="Image (5).jpg" alt="Cherry" class="dog-photo">
+                            <div class="dog-info">
+                                <h3>Cherry</h3>
+                                <p class="dog-breed">Golden Retriever</p>
+                                <p class="dog-age">4 years, 2 months</p>
+                            </div>
+                            <span class="dog-status healthy">Healthy</span>
+                        </div>
+                    </div>
+                    <button class="add-dog-btn" onclick="showAddDogModal()">+ Add New Dog</button>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-card upcoming">
+                        <span class="stat-icon">💉</span>
+                        <div class="stat-content">
+                            <h4>Next Vaccination</h4>
+                            <p class="stat-value">Rabies Booster</p>
+                            <p class="stat-date">April 15, 2026</p>
+                        </div>
+                    </div>
+                    <div class="stat-card reminder">
+                        <span class="stat-icon">💊</span>
+                        <div class="stat-content">
+                            <h4>Medicine Reminder</h4>
+                            <p class="stat-value">Deworming</p>
+                            <p class="stat-date">Due in 5 days</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Medical Events -->
+                <div class="recent-events">
+                    <h2>Recent Medical Events</h2>
+                    <div class="event-list">
+                        <div class="event-item" onclick="showEventDetails(1)">
+                            <span class="event-icon">💉</span>
+                            <div class="event-info">
+                                <h4>Immunity Booster</h4>
+                                <p>Dr. Hussain • Government Hospital</p>
+                            </div>
+                            <span class="event-date">Nov 2025</span>
+                        </div>
+                        <div class="event-item" onclick="showEventDetails(2)">
+                            <span class="event-icon">🩺</span>
+                            <div class="event-info">
+                                <h4>Regular Checkup</h4>
+                                <p>Dr. Hussain • Government Hospital</p>
+                            </div>
+                            <span class="event-date">Oct 2025</span>
+                        </div>
+                        <div class="event-item" onclick="showEventDetails(3)">
+                            <span class="event-icon">💊</span>
+                            <div class="event-info">
+                                <h4>Tick Treatment</h4>
+                                <p>Dr. Hussain • Government Hospital</p>
+                            </div>
+                            <span class="event-date">Oct 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== DOG PROFILE SCREEN ========== -->
+            <div id="screen-dog-profile" class="screen">
+                <div class="screen-header with-back">
+                    <button class="back-btn" onclick="navigateTo('dashboard')">← Back</button>
+                    <h1>Dog Profile</h1>
+                </div>
+                
+                <!-- Dog Basic Info -->
+                <div class="profile-card">
+                    <div class="profile-photo">
+                        <img id="profileDogImage" src="Image (5).jpg" alt="Cherry">
+                        <label for="profileImageUpload" class="edit-photo-btn">📷</label>
+                        <input type="file" id="profileImageUpload" accept="image/*" style="display:none">
+                    </div>
+                    <div class="profile-details">
+                        <h2 id="profileDogName">Cherry</h2>
+                        <p class="breed">Golden Retriever</p>
+                        <div class="detail-row">
+                            <span>🎂 Born:</span> <span>October 2021, Anantapur</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>📅 Age:</span> <span>4 years, 2 months</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>⚖️ Weight:</span> <span>23 kg</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>📍 Location:</span> <span>Tadipatri</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Tabs -->
+                <div class="profile-tabs">
+                    <button class="tab-btn active" onclick="switchProfileTab('medical')">🩺 Medical</button>
+                    <button class="tab-btn" onclick="switchProfileTab('vaccines')">💉 Vaccines</button>
+                    <button class="tab-btn" onclick="switchProfileTab('photos')">📸 Photos</button>
+                    <button class="tab-btn" onclick="switchProfileTab('diet')">🍖 Diet</button>
+                </div>
+
+                <!-- Tab Content: Medical History -->
+                <div id="profile-tab-medical" class="tab-content active">
+                    <div class="timeline">
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-card" onclick="showMedicalDetail(1)">
+                                <span class="timeline-date">November</span>
+                                <h4>Immunity Booster</h4>
+                                <p>Dr. Hussain • Government Hospital, Tadipatri</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-card" onclick="showMedicalDetail(2)">
+                                <span class="timeline-date">October</span>
+                                <h4>Vaccination</h4>
+                                <p>Dr. Hussain • Government Hospital, Tadipatri</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-card" onclick="showMedicalDetail(3)">
+                                <span class="timeline-date">April</span>
+                                <h4>Rabies Vaccination</h4>
+                                <p>Dr. Hussain • Government Hospital, Tadipatri</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot warning"></div>
+                            <div class="timeline-card warning" onclick="showMedicalDetail(4)">
+                                <span class="timeline-date">March</span>
+                                <h4>Portosystemic Shunt (PSS)</h4>
+                                <p>Dr. Hussain • Government Hospital, Tadipatri</p>
+                            </div>
+                        </div>
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot warning"></div>
+                            <div class="timeline-card warning" onclick="showMedicalDetail(5)">
+                                <span class="timeline-date">October</span>
+                                <h4>Portosystemic Shunt (PSS)</h4>
+                                <p>Dr. Srikanth • Government Hospital, Pullivendala</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Vaccines -->
+                <div id="profile-tab-vaccines" class="tab-content">
+                    <div class="vaccine-cards">
+                        <div class="vaccine-card">
+                            <span class="vaccine-icon">💉</span>
+                            <h4>Deworming</h4>
+                            <p class="vaccine-status completed">Last: Nov 2025</p>
+                            <p class="vaccine-next">Next: Feb 2026</p>
+                        </div>
+                        <div class="vaccine-card">
+                            <span class="vaccine-icon">🛡️</span>
+                            <h4>Immunity</h4>
+                            <p class="vaccine-status completed">Last: Nov 2025</p>
+                            <p class="vaccine-next">Next: Nov 2026</p>
+                        </div>
+                        <div class="vaccine-card">
+                            <span class="vaccine-icon">🦠</span>
+                            <h4>Rabies</h4>
+                            <p class="vaccine-status completed">Last: Apr 2025</p>
+                            <p class="vaccine-next">Next: Apr 2026</p>
+                        </div>
+                        <div class="vaccine-card">
+                            <span class="vaccine-icon">🪲</span>
+                            <h4>Tick Treatment</h4>
+                            <p class="vaccine-status completed">Last: Oct 2025</p>
+                            <p class="vaccine-next">Next: Jan 2026</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Photos -->
+                <div id="profile-tab-photos" class="tab-content">
+                    <div class="photo-gallery">
+                        <div class="gallery-year">
+                            <h3>2025</h3>
+                            <div class="gallery-grid">
+                                <img src="Album/2025/Image (5).jpg" alt="Cherry 2025" onclick="openPhotoViewer(this)">
+                                <img src="Album/2025/Image (7).jpg" alt="Cherry 2025" onclick="openPhotoViewer(this)">
+                            </div>
+                        </div>
+                        <div class="gallery-year">
+                            <h3>2024</h3>
+                            <div class="gallery-grid">
+                                <img src="Album/2024/Image (12).jpg" alt="Cherry 2024" onclick="openPhotoViewer(this)">
+                                <img src="Album/2024/Image (7).jpg" alt="Cherry 2024" onclick="openPhotoViewer(this)">
+                                <img src="Album/2024/Image (8).jpg" alt="Cherry 2024" onclick="openPhotoViewer(this)">
+                            </div>
+                        </div>
+                        <div class="gallery-year">
+                            <h3>2021 - Puppy Days 🐶</h3>
+                            <div class="gallery-grid">
+                                <img src="Album/2021/Image (14).jpg" alt="Cherry 2021" onclick="openPhotoViewer(this)">
+                                <img src="Album/2021/Image (15).jpg" alt="Cherry 2021" onclick="openPhotoViewer(this)">
+                                <img src="Album/2021/Image (16).jpg" alt="Cherry 2021" onclick="openPhotoViewer(this)">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="upload-photo-btn" onclick="uploadPhoto()">📷 Upload Photo</button>
+                </div>
+
+                <!-- Tab Content: Diet -->
+                <div id="profile-tab-diet" class="tab-content">
+                    <div class="diet-info">
+                        <div class="diet-section addons">
+                            <h3>⚖️ Daily Add-ons</h3>
+                            <ul>
+                                <li>Coconut oil – 1 tsp daily</li>
+                                <li>Turmeric – a pinch in one meal</li>
+                                <li>Blueberries – 2 pieces (3× per week)</li>
+                                <li>Fish oil capsule – 2× per week</li>
+                                <li>Curd – 2 tbsp (for digestion)</li>
+                            </ul>
+                        </div>
+                        <div class="diet-section avoid">
+                            <h3>🚫 Foods to Avoid</h3>
+                            <ul>
+                                <li>Red meat, Organ meat</li>
+                                <li>Biscuits, Fried/oily food</li>
+                                <li>Spicy/salty food, Milk</li>
+                                <li>Chocolates, grapes, onions, garlic</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="view-diet-btn" onclick="navigateTo('diet-plan')">📅 View 7-Day Diet Plan</button>
+                </div>
+            </div>
+
+            <!-- ========== VACCINATIONS SCREEN ========== -->
+            <div id="screen-vaccinations" class="screen">
+                <div class="screen-header">
+                    <h1>💉 Vaccinations</h1>
+                </div>
+                
+                <!-- Filter Tabs -->
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterVaccinations('all')">All</button>
+                    <button class="filter-tab" onclick="filterVaccinations('upcoming')">Upcoming</button>
+                    <button class="filter-tab" onclick="filterVaccinations('completed')">Completed</button>
+                    <button class="filter-tab" onclick="filterVaccinations('overdue')">Overdue</button>
+                </div>
+
+                <!-- Vaccination List -->
+                <div class="vaccination-list" id="vaccinationList">
+                    <div class="vaccination-item upcoming">
+                        <div class="vacc-icon">💉</div>
+                        <div class="vacc-info">
+                            <h4>Rabies Booster</h4>
+                            <p>Cherry • Dr. Hussain</p>
+                            <p class="vacc-location">Government Hospital, Tadipatri</p>
+                            <p class="vacc-medicine">💊 Rabisin Vaccine</p>
+                        </div>
+                        <div class="vacc-status">
+                            <span class="status-badge upcoming">Upcoming</span>
+                            <span class="vacc-date">Apr 15, 2026</span>
+                        </div>
+                    </div>
+                    <div class="vaccination-item upcoming">
+                        <div class="vacc-icon">🛡️</div>
+                        <div class="vacc-info">
+                            <h4>DHPP Vaccine</h4>
+                            <p>Cherry • Dr. Hussain</p>
+                            <p class="vacc-location">Government Hospital, Tadipatri</p>
+                            <p class="vacc-medicine">💊 Nobivac DHPPi</p>
+                        </div>
+                        <div class="vacc-status">
+                            <span class="status-badge upcoming">Upcoming</span>
+                            <span class="vacc-date">Jun 20, 2026</span>
+                        </div>
+                    </div>
+                    <div class="vaccination-item completed">
+                        <div class="vacc-icon">✅</div>
+                        <div class="vacc-info">
+                            <h4>Immunity Booster</h4>
+                            <p>Cherry • Dr. Hussain</p>
+                            <p class="vacc-location">Government Hospital, Tadipatri</p>
+                            <p class="vacc-medicine">💊 Canigen DHA2PPi/L</p>
+                        </div>
+                        <div class="vacc-status">
+                            <span class="status-badge completed">Completed</span>
+                            <span class="vacc-date">Nov 2025</span>
+                        </div>
+                    </div>
+                    <div class="vaccination-item completed">
+                        <div class="vacc-icon">✅</div>
+                        <div class="vacc-info">
+                            <h4>Deworming</h4>
+                            <p>Cherry • Dr. Hussain</p>
+                            <p class="vacc-location">Government Hospital, Tadipatri</p>
+                            <p class="vacc-medicine">💊 Drontal Plus Tablet</p>
+                        </div>
+                        <div class="vacc-status">
+                            <span class="status-badge completed">Completed</span>
+                            <span class="vacc-date">Nov 2025</span>
+                        </div>
+                    </div>
+                    <div class="vaccination-item completed">
+                        <div class="vacc-icon">✅</div>
+                        <div class="vacc-info">
+                            <h4>Rabies</h4>
+                            <p>Cherry • Dr. Hussain</p>
+                            <p class="vacc-location">Government Hospital, Tadipatri</p>
+                            <p class="vacc-medicine">💊 Defensor 3 Vaccine</p>
+                        </div>
+                        <div class="vacc-status">
+                            <span class="status-badge completed">Completed</span>
+                            <span class="vacc-date">Apr 2025</span>
+                        </div>
+                    </div>
+                    <div class="vaccination-item completed">
+                        <div class="vacc-icon">✅</div>
+                        <div class="vacc-info">
+                            <h4>Tick Treatment</h4>
+                            <p>Cherry • Dr. Hussain</p>
+                            <p class="vacc-location">Government Hospital, Tadipatri</p>
+                            <p class="vacc-medicine">💊 Frontline Plus Spot-On</p>
+                        </div>
+                        <div class="vacc-status">
+                            <span class="status-badge completed">Completed</span>
+                            <span class="vacc-date">Oct 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Vaccination FAB -->
+                <button class="fab" onclick="showAddVaccinationModal()">+</button>
+            </div>
+
+            <!-- ========== MEDICAL HISTORY SCREEN ========== -->
+            <div id="screen-medical" class="screen">
+                <div class="screen-header">
+                    <h1>🩺 Medical History</h1>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterMedicalRecords('all')">All</button>
+                    <button class="filter-tab" onclick="filterMedicalRecords('vaccination')">Vaccination</button>
+                    <button class="filter-tab" onclick="filterMedicalRecords('treatment')">Treatment</button>
+                    <button class="filter-tab" onclick="filterMedicalRecords('surgery')">Surgery</button>
+                    <button class="filter-tab" onclick="filterMedicalRecords('lab')">Lab</button>
+                </div>
+
+                <!-- Timeline View -->
+                <div class="medical-timeline" id="medicalTimeline">
+                    <div class="timeline-section">
+                        <div class="timeline-year-header">2025</div>
+                        <div class="medical-record" onclick="showMedicalDetail(1)">
+                            <div class="record-date">
+                                <span class="month">NOV</span>
+                                <span class="day">15</span>
+                            </div>
+                            <div class="record-content">
+                                <h4>Immunity Booster</h4>
+                                <p><strong>Doctor:</strong> Dr. Hussain</p>
+                                <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                                <span class="record-type vaccine">Vaccination</span>
+                            </div>
+                            <span class="record-arrow">›</span>
+                        </div>
+                        <div class="medical-record" onclick="showMedicalDetail(2)">
+                            <div class="record-date">
+                                <span class="month">OCT</span>
+                                <span class="day">20</span>
+                            </div>
+                            <div class="record-content">
+                                <h4>Tick Treatment</h4>
+                                <p><strong>Doctor:</strong> Dr. Hussain</p>
+                                <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                                <span class="record-type treatment">Treatment</span>
+                            </div>
+                            <span class="record-arrow">›</span>
+                        </div>
+                        <div class="medical-record" onclick="showMedicalDetail(3)">
+                            <div class="record-date">
+                                <span class="month">APR</span>
+                                <span class="day">10</span>
+                            </div>
+                            <div class="record-content">
+                                <h4>Rabies Vaccination</h4>
+                                <p><strong>Doctor:</strong> Dr. Hussain</p>
+                                <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                                <span class="record-type vaccine">Vaccination</span>
+                            </div>
+                            <span class="record-arrow">›</span>
+                        </div>
+                        <div class="medical-record warning" onclick="showMedicalDetail(4)">
+                            <div class="record-date">
+                                <span class="month">MAR</span>
+                                <span class="day">05</span>
+                            </div>
+                            <div class="record-content">
+                                <h4>Portosystemic Shunt (PSS)</h4>
+                                <p><strong>Doctor:</strong> Dr. Hussain</p>
+                                <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                                <p><strong>Diagnosis:</strong> Liver condition requiring diet management</p>
+                                <span class="record-type diagnosis">Diagnosis</span>
+                            </div>
+                            <span class="record-arrow">›</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-section">
+                        <div class="timeline-year-header">2023</div>
+                        <div class="medical-record warning" onclick="showMedicalDetail(5)">
+                            <div class="record-date">
+                                <span class="month">OCT</span>
+                                <span class="day">12</span>
+                            </div>
+                            <div class="record-content">
+                                <h4>Portosystemic Shunt (PSS)</h4>
+                                <p><strong>Doctor:</strong> Dr. Srikanth</p>
+                                <p><strong>Hospital:</strong> Government Hospital, Pullivendala</p>
+                                <span class="record-type diagnosis">Diagnosis</span>
+                            </div>
+                            <span class="record-arrow">›</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-section">
+                        <div class="timeline-year-header">2022</div>
+                        <div class="medical-record" onclick="showMedicalDetail(6)">
+                            <div class="record-date">
+                                <span class="month">MAY</span>
+                                <span class="day">18</span>
+                            </div>
+                            <div class="record-content">
+                                <h4>Shedding Treatment</h4>
+                                <p><strong>Doctor:</strong> Dr. Hussain</p>
+                                <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
+                                <span class="record-type treatment">Treatment</span>
+                            </div>
+                            <span class="record-arrow">›</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-section">
+                        <div class="timeline-year-header">2021</div>
+                        <div class="medical-record" onclick="showMedicalDetail(7)">
+                            <div class="record-date">
+                                <span class="month">JAN</span>
+                                <span class="day">15</span>
+                            </div>
+                            <div class="record-content">
+                                <h4>First Vaccinations</h4>
+                                <p><strong>Doctor:</strong> Dr. Ratnadeep</p>
+                                <p><strong>Hospital:</strong> Govardhana Veterinary Medicals, Anantapur</p>
+                                <span class="record-type vaccine">Vaccination</span>
+                            </div>
+                            <span class="record-arrow">›</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Record FAB -->
+                <button class="fab" onclick="showAddMedicalRecordModal()">+</button>
+            </div>
+
+            <!-- ========== ALBUM SCREEN ========== -->
+            <div id="screen-album" class="screen">
+                <div class="screen-header">
+                    <h1>📸 Photo Album</h1>
+                </div>
+
+                <!-- Album Gallery -->
+                <div class="album-gallery">
+                    <div class="album-section">
+                        <h3 class="album-year">2025</h3>
+                        <div class="album-grid">
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2025/Image (5).jpg" alt="Cherry 2025">
+                            </div>
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2025/Image (7).jpg" alt="Cherry 2025">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="album-section">
+                        <h3 class="album-year">2024</h3>
+                        <div class="album-grid">
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2024/Image (12).jpg" alt="Cherry 2024">
+                            </div>
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2024/Image (7).jpg" alt="Cherry 2024">
+                            </div>
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2024/Image (8).jpg" alt="Cherry 2024">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="album-section">
+                        <h3 class="album-year">2023</h3>
+                        <div class="album-grid">
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2023/Image (11).jpg" alt="Cherry 2023">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="album-section">
+                        <h3 class="album-year">2022</h3>
+                        <div class="album-grid">
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2022/Image (13).jpg" alt="Cherry 2022">
+                            </div>
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2022/Image (17).jpg" alt="Cherry 2022">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="album-section">
+                        <h3 class="album-year">2021 - Puppy Days 🐶</h3>
+                        <div class="album-grid">
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2021/Image (14).jpg" alt="Cherry 2021">
+                            </div>
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2021/Image (15).jpg" alt="Cherry 2021">
+                            </div>
+                            <div class="album-photo" onclick="openPhotoViewer(this)">
+                                <img src="Album/2021/Image (16).jpg" alt="Cherry 2021">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Photo FAB -->
+                <button class="fab" onclick="uploadPhoto()">📷</button>
+            </div>
+
+            <!-- ========== HOBBIES SCREEN ========== -->
+            <div id="screen-hobbies" class="screen">
+                <div class="screen-header">
+                    <h1>🎾 Cherry's Hobbies</h1>
+                </div>
+
+                <div class="hobbies-content">
+                    <div class="hobby-intro">
+                        <p>Cherry is an energetic Golden Retriever who loves to play and explore! Here are her favorite activities:</p>
+                    </div>
+
+                    <div class="hobbies-grid">
+                        <div class="hobby-card favorite">
+                            <span class="hobby-icon">🎾</span>
+                            <h4>Playing Fetch</h4>
+                            <p>Absolutely loves chasing tennis balls! Can play for hours without getting tired.</p>
+                            <span class="hobby-tag">Favorite!</span>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🏃</span>
+                            <h4>Running</h4>
+                            <p>Enjoys morning runs in the park. Gets super excited when she sees the leash!</p>
+                        </div>
+                        <div class="hobby-card favorite">
+                            <span class="hobby-icon">💦</span>
+                            <h4>Swimming</h4>
+                            <p>True to her breed, Cherry loves water! Splashing in puddles or swimming in ponds.</p>
+                            <span class="hobby-tag">Favorite!</span>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🦴</span>
+                            <h4>Chewing Toys</h4>
+                            <p>Has a collection of chew toys. The squeaky ones are her absolute favorite!</p>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🐕</span>
+                            <h4>Playing with Other Dogs</h4>
+                            <p>Very social and friendly. Loves making new friends at the dog park.</p>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🛋️</span>
+                            <h4>Cuddling</h4>
+                            <p>After playtime, loves to snuggle on the couch with family members.</p>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🚗</span>
+                            <h4>Car Rides</h4>
+                            <p>Gets excited for car trips! Loves sticking her head out the window.</p>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🌳</span>
+                            <h4>Exploring Nature</h4>
+                            <p>Enjoys sniffing around gardens and exploring new trails on walks.</p>
+                        </div>
+                        <div class="hobby-card">
+                            <span class="hobby-icon">🎯</span>
+                            <h4>Tug of War</h4>
+                            <p>Loves playing tug with rope toys. Never gives up easily!</p>
+                        </div>
+                    </div>
+
+                    <div class="hobby-note">
+                        <h3>⚠️ Activity Note</h3>
+                        <p>Due to Cherry's PSS condition, we keep activities moderate and ensure she doesn't overexert. Short play sessions with rest breaks work best!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== AI BOT SCREEN ========== -->
+            <div id="screen-ai-bot" class="screen">
+                <div class="screen-header">
+                    <h1>🤖 AI Pet Assistant</h1>
+                </div>
+
+                <!-- Chat Interface -->
+                <div class="chat-container">
+                    <div id="chatMessages" class="chat-messages">
+                        <div class="chat-message bot">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-content">
+                                <p>Hello! I'm your AI pet health assistant. I know all about Cherry's medical history, diet requirements, and PSS condition. Ask me anything!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="Ask about Cherry's health..." onkeypress="if(event.key==='Enter') sendMessage()">
+                        <button onclick="sendMessage()" class="send-btn">➤</button>
+                    </div>
+                </div>
+
+                <!-- Quick Questions -->
+                <div class="quick-questions">
+                    <button onclick="askQuestion('What should Cherry eat today?')">🍖 Diet advice</button>
+                    <button onclick="askQuestion('When is the next vaccination due?')">💉 Vaccinations</button>
+                    <button onclick="askQuestion('Tell me about PSS management')">🩺 PSS Info</button>
+                    <button onclick="askQuestion('What symptoms should I watch for?')">⚠️ Symptoms</button>
+                </div>
+            </div>
+
+            <!-- ========== SETTINGS SCREEN ========== -->
+            <div id="screen-settings" class="screen">
+                <div class="screen-header with-back">
+                    <button class="back-btn" onclick="navigateTo('dashboard')">← Back</button>
+                    <h1>⚙️ Settings</h1>
+                </div>
+
+                <div class="settings-content">
+                    <!-- User Profile -->
+                    <div class="settings-section">
+                        <h3>👤 Profile</h3>
+                        <div class="settings-item">
+                            <span>Name</span>
+                            <span id="settingsUserName">Pet Owner</span>
+                        </div>
+                        <div class="settings-item">
+                            <span>Email</span>
+                            <span id="settingsUserEmail">owner@kiropets.com</span>
+                        </div>
+                        <div class="settings-item">
+                            <span>Phone</span>
+                            <span>8978833504</span>
+                        </div>
+                        <button class="settings-btn" onclick="editProfile()">Edit Profile</button>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="settings-section">
+                        <h3>🔔 Notifications</h3>
+                        <div class="settings-toggle">
+                            <span>Vaccination Reminders</span>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="settings-toggle">
+                            <span>Medicine Alerts</span>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="settings-toggle">
+                            <span>Email Notifications</span>
+                            <label class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Family Sharing -->
+                    <div class="settings-section">
+                        <h3>👨‍👩‍👧 Family Sharing</h3>
+                        <div class="family-members">
+                            <div class="family-member-item">
+                                <span class="member-name">Srihari</span>
+                                <span class="member-role">Editor</span>
+                            </div>
+                            <div class="family-member-item">
+                                <span class="member-name">Srinivasulu</span>
+                                <span class="member-role">Viewer</span>
+                            </div>
+                        </div>
+                        <button class="settings-btn" onclick="addFamilyMember()">+ Add Family Member</button>
+                    </div>
+
+                    <!-- Admin Link -->
+                    <div class="settings-section admin-only">
+                        <h3>👑 Admin</h3>
+                        <a href="admin.html" class="admin-link">Open Admin Panel →</a>
+                    </div>
+
+                    <!-- App Info -->
+                    <div class="settings-section">
+                        <h3>ℹ️ About</h3>
+                        <div class="settings-item">
+                            <span>Version</span>
+                            <span>2.0.0</span>
+                        </div>
+                        <div class="settings-item">
+                            <span>Last Updated</span>
+                            <span>December 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== DIET PLAN SCREEN ========== -->
+            <div id="screen-diet-plan" class="screen">
+                <div class="screen-header with-back">
+                    <button class="back-btn" onclick="navigateTo('dog-profile')">← Back</button>
+                    <h1>📅 7-Day Diet Plan</h1>
+                </div>
+
+                <div class="diet-plan-content">
+                    <div class="diet-day-cards">
+                        <div class="diet-day-card">
+                            <h3>Day 1</h3>
+                            <div class="meal"><strong>Breakfast:</strong> Chicken ½ cup, Rice ½ cup, Carrot 2 tbsp + 1 tsp coconut oil</div>
+                            <div class="meal"><strong>Lunch:</strong> Sweet potato ½ cup, Curd 2 tbsp</div>
+                            <div class="meal"><strong>Dinner:</strong> Fish ½ cup, Pumpkin 2 tbsp + pinch of turmeric</div>
+                        </div>
+                        <div class="diet-day-card">
+                            <h3>Day 2</h3>
+                            <div class="meal"><strong>Breakfast:</strong> Egg whites 2, Oats ½ cup</div>
+                            <div class="meal"><strong>Lunch:</strong> Chicken ½ cup, Green beans 2 tbsp</div>
+                            <div class="meal"><strong>Dinner:</strong> Fish ½ cup, Rice ½ cup + 1 tsp coconut oil, 2 blueberries</div>
+                        </div>
+                        <div class="diet-day-card">
+                            <h3>Day 3</h3>
+                            <div class="meal"><strong>Breakfast:</strong> Chicken ½ cup, Rice ½ cup, Pumpkin 2 tbsp</div>
+                            <div class="meal"><strong>Lunch:</strong> Sweet potato ½ cup, Curd 2 tbsp</div>
+                            <div class="meal"><strong>Dinner:</strong> Fish ½ cup, Oats ½ cup, Carrot 2 tbsp + pinch of turmeric</div>
+                        </div>
+                        <div class="diet-day-card">
+                            <h3>Day 4</h3>
+                            <div class="meal"><strong>Breakfast:</strong> Fish ½ cup, Rice ½ cup + 1 tsp coconut oil</div>
+                            <div class="meal"><strong>Lunch:</strong> Cottage cheese ¼ cup, Green beans 2 tbsp</div>
+                            <div class="meal"><strong>Dinner:</strong> Egg whites 2, Sweet potato ½ cup + 2 blueberries</div>
+                        </div>
+                        <div class="diet-day-card">
+                            <h3>Day 5</h3>
+                            <div class="meal"><strong>Breakfast:</strong> Chicken ½ cup, Oats ½ cup, Pumpkin 2 tbsp</div>
+                            <div class="meal"><strong>Lunch:</strong> Sweet potato ½ cup, Curd 2 tbsp</div>
+                            <div class="meal"><strong>Dinner:</strong> Fish ½ cup, Rice ½ cup + pinch of turmeric</div>
+                        </div>
+                        <div class="diet-day-card">
+                            <h3>Day 6</h3>
+                            <div class="meal"><strong>Breakfast:</strong> Egg whites 2, Rice ½ cup, Carrot 2 tbsp + 1 tsp coconut oil</div>
+                            <div class="meal"><strong>Lunch:</strong> Chicken ½ cup, Pumpkin 2 tbsp</div>
+                            <div class="meal"><strong>Dinner:</strong> Fish ½ cup, Sweet potato ½ cup + 2 blueberries</div>
+                        </div>
+                        <div class="diet-day-card">
+                            <h3>Day 7</h3>
+                            <div class="meal"><strong>Breakfast:</strong> Fish ½ cup, Oats ½ cup, Spinach 1 tbsp</div>
+                            <div class="meal"><strong>Lunch:</strong> Curd 2 tbsp, Sweet potato ½ cup</div>
+                            <div class="meal"><strong>Dinner:</strong> Chicken ½ cup, Rice ½ cup + pinch of turmeric + 1 tsp coconut oil</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== TREATS SCREEN ========== -->
+            <div id="screen-treats" class="screen">
+                <div class="screen-header">
+                    <h1>🦴 Pet Treats</h1>
+                </div>
+
+                <div class="treats-content">
+                    <div class="treats-info-card">
+                        <h3>⚠️ Important for Cherry (PSS)</h3>
+                        <p>Due to Cherry's liver condition, choose low-protein treats and avoid treats with organ meat or high fat content.</p>
+                    </div>
+
+                    <h2>Recommended Treats</h2>
+                    <div class="treats-grid">
+                        <div class="treat-card">
+                            <span class="treat-icon">🍗</span>
+                            <h4>Chicken Roast Strips</h4>
+                            <p class="treat-brand">Dog Treats</p>
+                            <span class="treat-tag safe">PSS Safe</span>
+                        </div>
+                        <div class="treat-card">
+                            <span class="treat-icon">🍗</span>
+                            <h4>Chip Chops Chicken Tenders</h4>
+                            <p class="treat-brand">Dog Treats</p>
+                            <span class="treat-tag safe">PSS Safe</span>
+                        </div>
+                        <div class="treat-card">
+                            <span class="treat-icon">🥛</span>
+                            <h4>Drools Absolute Milk Bone</h4>
+                            <p class="treat-brand">Calcium Supplement</p>
+                            <span class="treat-tag moderate">Moderate</span>
+                        </div>
+                        <div class="treat-card">
+                            <span class="treat-icon">🦷</span>
+                            <h4>Pedigree Dentastix</h4>
+                            <p class="treat-brand">Dental Care</p>
+                            <span class="treat-tag safe">PSS Safe</span>
+                        </div>
+                        <div class="treat-card">
+                            <span class="treat-icon">🍖</span>
+                            <h4>Kennel Kitchen Chicken Stick</h4>
+                            <p class="treat-brand">Soft Baked Treats</p>
+                            <span class="treat-tag safe">PSS Safe</span>
+                        </div>
+                        <div class="treat-card">
+                            <span class="treat-icon">💊</span>
+                            <h4>Bark at Loud Multivitamin</h4>
+                            <p class="treat-brand">Health Supplement</p>
+                            <span class="treat-tag safe">PSS Safe</span>
+                        </div>
+                        <div class="treat-card">
+                            <span class="treat-icon">🐟</span>
+                            <h4>Fresh Chicken Immunity Chewstix</h4>
+                            <p class="treat-brand">Omega & Zinc</p>
+                            <span class="treat-tag safe">PSS Safe</span>
+                        </div>
+                        <div class="treat-card">
+                            <span class="treat-icon">🐑</span>
+                            <h4>Kennel Kitchen Lamb Sticks</h4>
+                            <p class="treat-brand">With Pumpkin</p>
+                            <span class="treat-tag moderate">Moderate</span>
+                        </div>
+                        <div class="treat-card">
+                            <span class="treat-icon">🥛</span>
+                            <h4>Kennel Kitchen Milk Sticks</h4>
+                            <p class="treat-brand">With Flaxseed</p>
+                            <span class="treat-tag safe">PSS Safe</span>
+                        </div>
+                    </div>
+
+                    <h2 style="margin-top: 25px;">🚫 Treats to Avoid</h2>
+                    <div class="avoid-treats">
+                        <div class="avoid-item">Liver-based treats</div>
+                        <div class="avoid-item">High-protein jerky</div>
+                        <div class="avoid-item">Rawhide chews</div>
+                        <div class="avoid-item">Fatty treats</div>
+                        <div class="avoid-item">Organ meat treats</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== HOSPITALS & DOCTORS SCREEN ========== -->
+            <div id="screen-hospitals" class="screen">
+                <div class="screen-header">
+                    <h1>🏥 Hospitals & Doctors</h1>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="hospital-search-bar">
+                    <div class="search-input-wrapper">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="hospitalSearch" placeholder="Search hospital or doctor..." oninput="searchHospitalTable()">
+                    </div>
+                    <select id="hospitalFilter" class="hospital-filter" onchange="filterHospitalTable()">
+                        <option value="all">All Locations</option>
+                        <option value="tadipatri">Tadipatri</option>
+                        <option value="anantapur">Anantapur</option>
+                        <option value="pullivendala">Pullivendala</option>
+                    </select>
+                </div>
+
+                <!-- Hospitals Table -->
+                <div class="hospitals-table-container">
+                    <table class="hospitals-table" id="hospitalsTable">
+                        <thead>
+                            <tr>
+                                <th>Hospital</th>
+                                <th>Location</th>
+                                <th>Phone</th>
+                                <th>Timing</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-location="tadipatri">
+                                <td><span class="hospital-name">🏥 Government Veterinary Hospital</span></td>
+                                <td>Tadipatri, AP</td>
+                                <td>08558-224455</td>
+                                <td><span class="timing-badge">Mon-Sat: 9AM-5PM</span></td>
+                            </tr>
+                            <tr data-location="anantapur">
+                                <td><span class="hospital-name">🏥 Govardhana Veterinary Medicals</span></td>
+                                <td>Anantapur, AP</td>
+                                <td>08554-276890</td>
+                                <td><span class="timing-badge open-24">Mon-Sun: 8AM-8PM</span></td>
+                            </tr>
+                            <tr data-location="pullivendala">
+                                <td><span class="hospital-name">🏥 Government Veterinary Hospital</span></td>
+                                <td>Pullivendala, AP</td>
+                                <td>08562-234567</td>
+                                <td><span class="timing-badge">Mon-Fri: 9AM-4PM</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Doctors Table -->
+                <div class="screen-header" style="margin-top: 25px;">
+                    <h2>👨‍⚕️ Doctors Directory</h2>
+                </div>
+                <div class="hospitals-table-container">
+                    <table class="hospitals-table doctors-table" id="doctorsTable">
+                        <thead>
+                            <tr>
+                                <th>Doctor</th>
+                                <th>Specialty</th>
+                                <th>Experience</th>
+                                <th>Hospital</th>
+                                <th>Phone</th>
+                                <th>Availability</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-location="tadipatri" data-name="hussain">
+                                <td><span class="doctor-name">👨‍⚕️ Dr. Hussain</span></td>
+                                <td>Veterinary Surgeon</td>
+                                <td>15+ years</td>
+                                <td>Govt. Hospital, Tadipatri</td>
+                                <td>9876543210</td>
+                                <td>
+                                    <span class="day-mini available">M</span>
+                                    <span class="day-mini available">T</span>
+                                    <span class="day-mini available">W</span>
+                                    <span class="day-mini available">T</span>
+                                    <span class="day-mini available">F</span>
+                                    <span class="day-mini available">S</span>
+                                    <span class="day-mini unavailable">S</span>
+                                </td>
+                            </tr>
+                            <tr data-location="tadipatri" data-name="lakshmi">
+                                <td><span class="doctor-name">👩‍⚕️ Dr. Lakshmi Devi</span></td>
+                                <td>Small Animal Specialist</td>
+                                <td>8 years</td>
+                                <td>Govt. Hospital, Tadipatri</td>
+                                <td>9123456780</td>
+                                <td>
+                                    <span class="day-mini available">M</span>
+                                    <span class="day-mini unavailable">T</span>
+                                    <span class="day-mini available">W</span>
+                                    <span class="day-mini unavailable">T</span>
+                                    <span class="day-mini available">F</span>
+                                    <span class="day-mini available">S</span>
+                                    <span class="day-mini unavailable">S</span>
+                                </td>
+                            </tr>
+                            <tr data-location="anantapur" data-name="ratnadeep">
+                                <td><span class="doctor-name">👨‍⚕️ Dr. Ratnadeep</span></td>
+                                <td>Canine Specialist</td>
+                                <td>20+ years</td>
+                                <td>Govardhana Medicals, Anantapur</td>
+                                <td>9988776655</td>
+                                <td>
+                                    <span class="day-mini available">M</span>
+                                    <span class="day-mini available">T</span>
+                                    <span class="day-mini available">W</span>
+                                    <span class="day-mini available">T</span>
+                                    <span class="day-mini available">F</span>
+                                    <span class="day-mini available">S</span>
+                                    <span class="day-mini available">S</span>
+                                </td>
+                            </tr>
+                            <tr data-location="anantapur" data-name="venkat">
+                                <td><span class="doctor-name">👨‍⚕️ Dr. Venkat Reddy</span></td>
+                                <td>Emergency & Critical Care</td>
+                                <td>12 years</td>
+                                <td>Govardhana Medicals, Anantapur</td>
+                                <td>9876501234</td>
+                                <td>
+                                    <span class="day-mini unavailable">M</span>
+                                    <span class="day-mini available">T</span>
+                                    <span class="day-mini available">W</span>
+                                    <span class="day-mini available">T</span>
+                                    <span class="day-mini available">F</span>
+                                    <span class="day-mini unavailable">S</span>
+                                    <span class="day-mini available">S</span>
+                                </td>
+                            </tr>
+                            <tr data-location="pullivendala" data-name="srikanth">
+                                <td><span class="doctor-name">👨‍⚕️ Dr. Srikanth</span></td>
+                                <td>Internal Medicine & Liver</td>
+                                <td>10 years</td>
+                                <td>Govt. Hospital, Pullivendala</td>
+                                <td>9445566778</td>
+                                <td>
+                                    <span class="day-mini available">M</span>
+                                    <span class="day-mini available">T</span>
+                                    <span class="day-mini available">W</span>
+                                    <span class="day-mini available">T</span>
+                                    <span class="day-mini available">F</span>
+                                    <span class="day-mini unavailable">S</span>
+                                    <span class="day-mini unavailable">S</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="emergency-card" style="margin-top: 20px;">
+                    <h3>🚨 24/7 Emergency</h3>
+                    <p>For after-hours emergencies, contact:</p>
+                    <p class="emergency-number">📞 1962 (Animal Helpline)</p>
+                    <p class="emergency-number">📞 9876543210 (Dr. Hussain - Personal)</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Photo Viewer Modal -->
+    <div id="photoViewerModal" class="modal" onclick="closePhotoViewer()">
+        <span class="close-modal">&times;</span>
+        <img id="modalPhoto" src="" alt="Photo">
+    </div>
+
+    <!-- Medical Detail Modal -->
+    <div id="medicalDetailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeMedicalDetail()">&times;</span>
+            <div id="medicalDetailContent"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="js/config.js"></script>
     <script src="js/data-loader.js"></script>
     <script src="js/ai-assistant.js"></script>
     <script src="js/api-service.js"></script>
-    <script src="js/script.js"></script>
-    <!-- Floating Paw Prints Background -->
-    <div class="paw-floating"></div>
-    
-    <div class="container">
-        <header>
-            <h1>🐾 Cherry - The Golden Retriever</h1>
-        </header>
-
-        <section class="pet-profile">
-            <div class="profile-header">
-                <div class="pet-image">
-                    <img id="petImage" src="Image (5).jpg" alt="Pet Photo">
-                    <input type="file" id="imageUpload" accept="image/*">
-                    <label for="imageUpload" class="upload-btn">Upload Photo</label>
-                </div>
-                <div class="pet-basic-info">
-                    
-                    <p><strong>Born:</strong> October 2021, Anantapur</p>
-                    <p><strong>Age:</strong> 4years,3months</p>
-                    <p><strong>Weight:</strong> 23 </p>
-                    <p><strong>Living in:</strong> Tadipatri</p>
-                    <p><strong>Address:</strong> 15/1149-6-1, Ground Floor, Sanjeeva Nagar, 5th Road, Tadipatri 515411</p>
-                    <p><strong>Contact:</strong> 8978833504</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="album">
-            <h2>📸 Album</h2>
-            
-            <!-- Enhanced Filters Bar -->
-            <div class="dashboard-filters">
-                <div class="filter-group">
-                    <label for="albumYearFilter">📅 Year:</label>
-                    <select id="albumYearFilter" onchange="applyAlbumFilters()" class="filter-select">
-                        <option value="all">All Years</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="albumCategoryFilter">🏷 Category:</label>
-                    <select id="albumCategoryFilter" onchange="applyAlbumFilters()" class="filter-select">
-                        <option value="all">All Categories</option>
-                        <option value="activities">Activities</option>
-                        <option value="vet">Vet Visit</option>
-                        <option value="grooming">Grooming</option>
-                        <option value="birthday">Birthday</option>
-                        <option value="travel">Travel</option>
-                        <option value="random">Random</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="albumPetFilter">🐶 Pet:</label>
-                    <select id="albumPetFilter" onchange="applyAlbumFilters()" class="filter-select">
-                        <option value="cherry">Cherry</option>
-                        <option value="all">All Pets</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="albumLocationFilter">📍 Location:</label>
-                    <select id="albumLocationFilter" onchange="applyAlbumFilters()" class="filter-select">
-                        <option value="all">All Locations</option>
-                        <option value="home">Home</option>
-                        <option value="park">Park</option>
-                        <option value="vet">Vet</option>
-                        <option value="training">Training Center</option>
-                        <option value="others">Others</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="albumSortFilter">🔽 Sort:</label>
-                    <select id="albumSortFilter" onchange="applyAlbumFilters()" class="filter-select">
-                        <option value="newest">Newest → Oldest</option>
-                        <option value="oldest">Oldest → Newest</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <button onclick="expandAllAlbum()" class="filter-btn">Expand All</button>
-                </div>
-                <div class="filter-group">
-                    <button onclick="collapseAllAlbum()" class="filter-btn">Collapse All</button>
-                </div>
-                <div class="filter-group">
-                    <button onclick="clearAlbumFilters()" class="clear-btn">🔄 Clear All</button>
-                </div>
-            </div>
-
-            <div class="album-year-section">
-
-            <div id="album2025" class="album-year-content">
-                        <div class="photo-grid">
-                            <div class="photo-item">
-                                <img src="Album/2025/Image (5).jpg" alt="Cherry 2025">
-                                <p class="photo-caption">Cherry - 2025</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2025/Image (7).jpg" alt="Cherry 2025">
-                                <p class="photo-caption">Cherry - 2025</p>
-                            </div>
-                        </div>
-                    </div>
-
-                     <div id="album2024" class="album-year-content">
-                        <div class="photo-grid">
-                            <div class="photo-item">
-                                <img src="Album/2024/Image (12).jpg" alt="Cherry 2024">
-                                <p class="photo-caption">Cherry - 2024</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2024/Image (7).jpg" alt="Cherry 2024">
-                                <p class="photo-caption">Cherry - 2024</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2024/Image (8).jpg" alt="Cherry 2024">
-                                <p class="photo-caption">Cherry - 2024</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="album2023" class="album-year-content">
-                        <div class="photo-grid">
-                            <div class="photo-item">
-                                <img src="Album/2023/Image (11).jpg" alt="Cherry 2023">
-                                <p class="photo-caption">Cherry - 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="album2022" class="album-year-content">
-                        <div class="photo-grid">
-                            <div class="photo-item">
-                                <img src="Album/2022/Image (13).jpg" alt="Cherry 2022">
-                                <p class="photo-caption">Cherry - 2022</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2022/Image (17).jpg" alt="Cherry 2022">
-                                <p class="photo-caption">Cherry - 2022</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="album2021" class="album-year-content">
-                        <div class="photo-grid">
-                            <div class="photo-item">
-                                <img src="Album/2021/Image (14).jpg" alt="Cherry 2021">
-                                <p class="photo-caption">Cherry as a puppy - 2021</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2021/Image (15).jpg" alt="Cherry 2021">
-                                <p class="photo-caption">Cherry as a puppy - 2021</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2021/Image (16).jpg" alt="Cherry 2021">
-                                <p class="photo-caption">Cherry as a puppy - 2021</p>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-            
-            <!-- <div class="album-accordion"></div> -->
-                <!-- <div class="album-year-section">
-                    <button class="album-year-header" onclick="toggleAlbumYear('album2025')">
-                        <span>2025</span>
-                        <span class="arrow">▼</span>
-                    </button>
-                    <div id="album2025" class="album-year-content">
-                        <div class="photo-grid">
-                            <div class="photo-item">
-                                <img src="Album/2025/Image (5).jpg" alt="Cherry 2025">
-                                <p class="photo-caption">Cherry - 2025</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2025/Image (7).jpg" alt="Cherry 2025">
-                                <p class="photo-caption">Cherry - 2025</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="album-year-section">
-                    <button class="album-year-header" onclick="toggleAlbumYear('album2024')">
-                        <span>2024</span>
-                        <span class="arrow">▼</span>
-                    </button>
-                    <div id="album2024" class="album-year-content">
-                        <div class="photo-grid">
-                            <div class="photo-item">
-                                <img src="Album/2024/Image (12).jpg" alt="Cherry 2024">
-                                <p class="photo-caption">Cherry - 2024</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2024/Image (7).jpg" alt="Cherry 2024">
-                                <p class="photo-caption">Cherry - 2024</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2024/Image (8).jpg" alt="Cherry 2024">
-                                <p class="photo-caption">Cherry - 2024</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="album-year-section">
-                    <button class="album-year-header" onclick="toggleAlbumYear('album2023')">
-                        <span>2023</span>
-                        <span class="arrow">▼</span>
-                    </button>
-                    <div id="album2023" class="album-year-content">
-                        <div class="photo-grid">
-                            <div class="photo-item">
-                                <img src="Album/2023/Image (11).jpg" alt="Cherry 2023">
-                                <p class="photo-caption">Cherry - 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="album-year-section">
-                    <button class="album-year-header" onclick="toggleAlbumYear('album2022')">
-                        <span>2022</span>
-                        <span class="arrow">▼</span>
-                    </button>
-                    <div id="album2022" class="album-year-content">
-                        <div class="photo-grid">
-                            <div class="photo-item">
-                                <img src="Album/2022/Image (13).jpg" alt="Cherry 2022">
-                                <p class="photo-caption">Cherry - 2022</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2022/Image (17).jpg" alt="Cherry 2022">
-                                <p class="photo-caption">Cherry - 2022</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="album-year-section">
-                    <button class="album-year-header" onclick="toggleAlbumYear('album2021')">
-                        <span>2021</span>
-                        <span class="arrow">▼</span>
-                    </button>
-                    <div id="album2021" class="album-year-content">
-                        <div class="photo-grid">
-                            <div class="photo-item">
-                                <img src="Album/2021/Image (14).jpg" alt="Cherry 2021">
-                                <p class="photo-caption">Cherry as a puppy - 2021</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2021/Image (15).jpg" alt="Cherry 2021">
-                                <p class="photo-caption">Cherry as a puppy - 2021</p>
-                            </div>
-                            <div class="photo-item">
-                                <img src="Album/2021/Image (16).jpg" alt="Cherry 2021">
-                                <p class="photo-caption">Cherry as a puppy - 2021</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-        </section>
-
-        <section class="vaccinations">
-            <h2>Vaccination Records</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>💉 Deworming</h3>
-                    <p class="status">Last: November 2025</p>
-                    <p class="doctor">Dr. Hussain</p>
-                    <p class="location">Government Hospital, Tadipatri</p>
-                </div>
-                <div class="card">
-                    <h3>🛡️ Immunity</h3>
-                    <p class="status">Last: November 2025</p>
-                    <p class="doctor">Dr. Hussain</p>
-                    <p class="location">Government Hospital, Tadipatri</p>
-                </div>
-                <div class="card">
-                    <h3>🦠 Rabies</h3>
-                    <p class="status">Last: April 2025</p>
-                    <p class="doctor">Dr. Hussain</p>
-                    <p class="location">Government Hospital, Tadipatri</p>
-                </div>
-                <div class="card">
-                    <h3>🐕 Shedding</h3>
-                    <p class="status">Last: May 2022</p>
-                    <p class="doctor">Dr. Hussain</p>
-                    <p class="location">Government Hospital, Tadipatri</p>
-                </div>
-                <div class="card">
-                    <h3>🪲 Ticks</h3>
-                    <p class="status">Last: October 2025</p>
-                    <p class="doctor">Dr. Hussain</p>
-                    <p class="location">Government Hospital, Tadipatri</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="medical-history">
-            <h2>Medical History</h2>
-            
-            <div class="timeline">
-                <h3 class="year-title">2025</h3>
-                <div class="timeline-item">
-                    <div class="timeline-date">November 2025</div>
-                    <div class="timeline-content">
-                        <h3>Immunity Booster</h3>
-                        <p><strong>Doctor:</strong> Dr. Hussain</p>
-                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">October 2025</div>
-                    <div class="timeline-content">
-                        <h3>Vaccination</h3>
-                        <p><strong>Doctor:</strong> Dr. Hussain</p>
-                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">April 2025</div>
-                    <div class="timeline-content">
-                        <h3>Rabies Vaccination</h3>
-                        <p><strong>Doctor:</strong> Dr. Hussain</p>
-                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">March 2025</div>
-                    <div class="timeline-content">
-                        <h3>Portosystemic Shunt (PSS)</h3>
-                        <p><strong>Doctor:</strong> Dr. Hussain</p>
-                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
-                    </div>
-                </div>
-
-                <h3 class="year-title">2023</h3>
-                <div class="timeline-item">
-                    <div class="timeline-date">October 2023</div>
-                    <div class="timeline-content">
-                        <h3>Portosystemic Shunt (PSS)</h3>
-                        <p><strong>Doctor:</strong> Dr. Srikanth</p>
-                        <p><strong>Hospital:</strong> Government Hospital, Pullivendala</p>
-                    </div>
-                </div>
-
-                <h3 class="year-title">2022</h3>
-                <div class="timeline-item">
-                    <div class="timeline-date">May 2022</div>
-                    <div class="timeline-content">
-                        <h3>Shedding Treatment</h3>
-                        <p><strong>Doctor:</strong> Dr. Hussain</p>
-                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">April 2022</div>
-                    <div class="timeline-content">
-                        <h3>Portosystemic Shunt (PSS)</h3>
-                        <p><strong>Doctor:</strong> Dr. Srikanth</p>
-                        <p><strong>Hospital:</strong> Government Hospital, Tadipatri</p>
-                    </div>
-                </div>
-
-                <h3 class="year-title">2021</h3>
-                <div class="timeline-item">
-                    <div class="timeline-date">January 2021</div>
-                    <div class="timeline-content">
-                        <h3>First Vaccinations</h3>
-                        <p><strong>Doctor:</strong> Dr. Ratnadeep</p>
-                        <p><strong>Hospital:</strong> Govardhana Veterinary Medicals, Anantapur</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="hospitals">
-            <h2>Hospital Information</h2>
-            <div class="card-grid">
-                <div class="card hospital-card">
-                    <h3>🏥 Government Hospital</h3>
-                    <p><strong>Location:</strong> Tadipatri</p>
-                    <p><strong>Doctors:</strong> Dr. Hussain</p>
-                    <p><strong>Last Visit:</strong> November 2025</p>
-                </div>
-                <div class="card hospital-card">
-                    <h3>🏥 Govardhana Veterinary Medicals</h3>
-                    <p><strong>Location:</strong> Anantapur</p>
-                    <p><strong>Doctors:</strong> Dr. Ratnadeep</p>
-                    <p><strong>Last Visit:</strong> November 2025</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="diet">
-            <h2>🐶 7-Day Combined Diet Chart</h2>
-            
-            <div class="daily-addons">
-                <h3>⚖ Daily Add-ons (very important)</h3>
-                <ul>
-                    <li>Coconut oil – 1 tsp daily</li>
-                    <li>Turmeric – a pinch in one meal</li>
-                    <li>Blueberries – 2 pieces (3× per week)</li>
-                    <li>Fish oil capsule – 2× per week (if vet approved)</li>
-                    <li>Curd – 2 tbsp (for digestion)</li>
-                </ul>
-            </div>
-
-            <div class="diet-accordion">
-                <div class="diet-day-section">
-                    <button class="diet-day-header" onclick="toggleDietDay('dietPlan')">
-                        <span>📅 7-Day Diet Plan</span>
-                        <span class="arrow">▼</span>
-                    </button>
-                    <div id="dietPlan" class="diet-day-content">
-                        <div class="diet-scroller-container">
-                            <button class="scroll-btn scroll-left" onclick="scrollDietPlan('left')">‹</button>
-                            <div class="diet-days-scroller">
-                        <div class="day-group">
-                            <h3>DAY 1</h3>
-                            <div class="meal">
-                                <h4>Breakfast:</h4>
-                                <p>Chicken – ½ cup<br>Rice – ½ cup<br>Carrot – 2 tbsp<br><strong>Add:</strong> 1 tsp coconut oil</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Lunch:</h4>
-                                <p>Sweet potato – ½ cup<br>Curd – 2 tbsp</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Dinner:</h4>
-                                <p>Fish – ½ cup<br>Pumpkin – 2 tbsp<br><strong>Add:</strong> A pinch of turmeric</p>
-                            </div>
-                        </div>
-
-                        <div class="day-group">
-                            <h3>DAY 2</h3>
-                            <div class="meal">
-                                <h4>Breakfast:</h4>
-                                <p>Egg whites – 2<br>Oats – ½ cup</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Lunch:</h4>
-                                <p>Chicken – ½ cup<br>Green beans – 2 tbsp</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Dinner:</h4>
-                                <p>Fish – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> 1 tsp coconut oil<br>2 blueberries</p>
-                            </div>
-                        </div>
-
-                        <div class="day-group">
-                            <h3>DAY 3</h3>
-                            <div class="meal">
-                                <h4>Breakfast:</h4>
-                                <p>Chicken – ½ cup<br>Rice – ½ cup<br>Pumpkin – 2 tbsp</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Lunch:</h4>
-                                <p>Sweet potato – ½ cup<br>Curd – 2 tbsp</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Dinner:</h4>
-                                <p>Fish – ½ cup<br>Oats – ½ cup<br>Carrot – 2 tbsp<br><strong>Add:</strong> A pinch of turmeric</p>
-                            </div>
-                        </div>
-
-                        <div class="day-group">
-                            <h3>DAY 4</h3>
-                            <div class="meal">
-                                <h4>Breakfast:</h4>
-                                <p>Fish – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> 1 tsp coconut oil</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Lunch:</h4>
-                                <p>Cottage cheese – ¼ cup<br>Green beans – 2 tbsp</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Dinner:</h4>
-                                <p>Egg whites – 2<br>Sweet potato – ½ cup<br><strong>Add:</strong> 2 blueberries</p>
-                            </div>
-                        </div>
-
-                        <div class="day-group">
-                            <h3>DAY 5</h3>
-                            <div class="meal">
-                                <h4>Breakfast:</h4>
-                                <p>Chicken – ½ cup<br>Oats – ½ cup<br>Pumpkin – 2 tbsp</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Lunch:</h4>
-                                <p>Sweet potato – ½ cup<br>Curd – 2 tbsp</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Dinner:</h4>
-                                <p>Fish – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> A pinch of turmeric</p>
-                            </div>
-                        </div>
-
-                        <div class="day-group">
-                            <h3>DAY 6</h3>
-                            <div class="meal">
-                                <h4>Breakfast:</h4>
-                                <p>Egg whites – 2<br>Rice – ½ cup<br>Carrot – 2 tbsp<br><strong>Add:</strong> 1 tsp coconut oil</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Lunch:</h4>
-                                <p>Chicken – ½ cup<br>Pumpkin – 2 tbsp</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Dinner:</h4>
-                                <p>Fish – ½ cup<br>Sweet potato – ½ cup<br><strong>Add:</strong> 2 blueberries</p>
-                            </div>
-                        </div>
-
-                        <div class="day-group">
-                            <h3>DAY 7</h3>
-                            <div class="meal">
-                                <h4>Breakfast:</h4>
-                                <p>Fish – ½ cup<br>Oats – ½ cup<br>Spinach (very small amount) – 1 tbsp</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Lunch:</h4>
-                                <p>Curd – 2 tbsp<br>Sweet potato – ½ cup</p>
-                            </div>
-                            <div class="meal">
-                                <h4>Dinner:</h4>
-                                <p>Chicken – ½ cup<br>Rice – ½ cup<br><strong>Add:</strong> A pinch of turmeric<br><strong>Add:</strong> 1 tsp coconut oil</p>
-                            </div>
-                        </div>
-                            </div>
-                            <button class="scroll-btn scroll-right" onclick="scrollDietPlan('right')">›</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="avoid-foods">
-                <h3>🚫 Foods to Strictly Avoid</h3>
-                <ul>
-                    <li>Red meat</li>
-                    <li>Organ meat (liver/kidney)</li>
-                    <li>Biscuits</li>
-                    <li>Fried/oily food</li>
-                    <li>Spicy/salty food</li>
-                    <li>Milk (curd is OK)</li>
-                    <li>Chocolates, grapes, onions, garlic</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="treats">
-            <h2>🦴 Treats</h2>
-            <div class="treats-grid">
-                <div class="treat-item">1. Chicken Roast Strips Dog Treats</div>
-                <div class="treat-item">2. Chip Chops Chicken Tenders Dog Treats</div>
-                <div class="treat-item">3. Drools Absolute Milk Bone</div>
-                <div class="treat-item">4. Pedigree Dentastix</div>
-                <div class="treat-item">5. Chip chops chicken tenders</div>
-                <div class="treat-item">6. Kennel Kitchen All Life Stages Soft Baked Chicken Stick Treats</div>
-                <div class="treat-item">7. Bark at Loud - Multivitamin Dog Treats</div>
-                <div class="treat-item">8. Fresh Chicken Immunity Chewstix with Omega & Zinc to Boost Health</div>
-                <div class="treat-item">9. Kennel Kitchen Soft Baked Lamb with Pumpkin Sticks Treats</div>
-                <div class="treat-item">10. Kennel Kitchen Milk Sticks with Flaxseed Dog Treats</div>
-            </div>
-        </section>
-
-        <section class="medicines">
-            <h2>Medicines</h2>
-            <div class="medicine-list" id="medicineList">
-                <p>Add medicines using the form below</p>
-            </div>
-            <div class="add-medicine-form">
-                <input type="text" id="medicineInput" placeholder="Medicine name">
-                <input type="text" id="dosageInput" placeholder="Dosage">
-                <button onclick="addMedicine()">Add Medicine</button>
-            </div>
-        </section>
-
-        <section class="next-due">
-            <h2>Next Vaccination Due</h2>
-            <div class="due-container">
-                <input type="date" id="nextDueDate">
-                <input type="text" id="nextDueType" placeholder="Vaccination type">
-                <button onclick="setNextDue()">Set Next Due</button>
-                <div id="dueDisplay" class="due-display"></div>
-            </div>
-        </section>
-
-        <section class="growth-tracking">
-            <h2>📊 Growth & Weight Tracking</h2>
-            
-            <!-- Filters Bar -->
-            <div class="dashboard-filters">
-                <div class="filter-group">
-                    <label for="growthPetFilter">🐾 Pet:</label>
-                    <select id="growthPetFilter" onchange="applyGrowthFilters()" class="filter-select">
-                        <option value="cherry">Cherry</option>
-                        <option value="all">All Pets</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="growthYearFilter">📅 Year:</label>
-                    <select id="growthYearFilter" onchange="applyGrowthFilters()" class="filter-select">
-                        <option value="all">All Years</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="growthUnitsFilter">📏 Units:</label>
-                    <select id="growthUnitsFilter" onchange="applyGrowthFilters()" class="filter-select">
-                        <option value="metric">Metric (kg/cm)</option>
-                        <option value="imperial">Imperial (lbs/in)</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="growthViewType">👁️ View Type:</label>
-                    <select id="growthViewType" onchange="changeGrowthView()" class="filter-select">
-                        <option value="chart">Line Chart</option>
-                        <option value="table">Table</option>
-                        <option value="comparison">Comparison</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <button onclick="toggleGrowthForm()" class="filter-btn">+ Add New</button>
-                </div>
-                <div class="filter-group">
-                    <button onclick="clearGrowthFilters()" class="clear-btn">🔄 Clear All</button>
-                </div>
-            </div>
-
-            <!-- Add Record Form (Hidden by default) -->
-            <div id="trackingFormContainer" class="tracking-form-container" style="display: none;">
-                <div class="tracking-form">
-                    <input type="date" id="trackingDate" placeholder="Date">
-                    <input type="number" id="weightInput" placeholder="Weight (kg)" step="0.1">
-                    <input type="number" id="heightInput" placeholder="Height (cm)" step="0.1">
-                    <button onclick="addTracking()">Add Record</button>
-                    <button onclick="toggleGrowthForm()" class="cancel-btn">Cancel</button>
-                </div>
-            </div>
-
-            <!-- Growth Chart View -->
-            <div id="trackingChart" class="tracking-chart">
-                <p>Loading growth data...</p>
-            </div>
-            
-            <!-- Growth Table View -->
-            <div id="trackingTable" class="tracking-table" style="display: none;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Year</th>
-                            <th>Month</th>
-                            <th>Age</th>
-                            <th>Height (cm)</th>
-                            <th>Weight (kg)</th>
-                            <th>Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody id="trackingTableBody"></tbody>
-                </table>
-            </div>
-
-            <!-- Growth List View -->
-            <div id="trackingList" class="tracking-list"></div>
-        </section>
-
-        <section class="vaccination-reminder">
-            <h2>💉 Vaccination Reminder System</h2>
-            <div class="reminder-form">
-                <input type="text" id="reminderVaccine" placeholder="Vaccine name">
-                <input type="date" id="reminderDate" placeholder="Due date">
-                <select id="reminderMethod">
-                    <option value="">Select reminder method</option>
-                    <option value="email">Email</option>
-                    <option value="sms">SMS</option>
-                    <option value="app">In-App Alert</option>
-                </select>
-                <button onclick="setReminder()">Set Reminder</button>
-            </div>
-            <div id="reminderList" class="reminder-list">
-                <p>No reminders set</p>
-            </div>
-        </section>
-
-        <section class="symptoms-checker">
-            <h2>🩺 Symptoms Checker</h2>
-            <div class="symptoms-form">
-                <h3>Select Symptoms:</h3>
-                <div class="symptoms-grid">
-                    <label><input type="checkbox" value="vomiting"> Vomiting</label>
-                    <label><input type="checkbox" value="diarrhea"> Diarrhea</label>
-                    <label><input type="checkbox" value="lethargy"> Lethargy</label>
-                    <label><input type="checkbox" value="loss-appetite"> Loss of Appetite</label>
-                    <label><input type="checkbox" value="coughing"> Coughing</label>
-                    <label><input type="checkbox" value="fever"> Fever</label>
-                    <label><input type="checkbox" value="limping"> Limping</label>
-                    <label><input type="checkbox" value="scratching"> Excessive Scratching</label>
-                    <label><input type="checkbox" value="breathing"> Difficulty Breathing</label>
-                    <label><input type="checkbox" value="seizures"> Seizures</label>
-                </div>
-                <button onclick="checkSymptoms()">Check Symptoms</button>
-            </div>
-            <div id="symptomsResult" class="symptoms-result"></div>
-        </section>
-
-        <section class="medication-tracking">
-            <h2>💊 Medication Tracking & Refill Alerts</h2>
-            
-            <!-- Filters Bar -->
-            <div class="dashboard-filters">
-                <div class="filter-group">
-                    <label for="medPetFilter">🐾 Pet:</label>
-                    <select id="medPetFilter" onchange="applyMedicationFilters()" class="filter-select">
-                        <option value="cherry">Cherry</option>
-                        <option value="all">All Pets</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="medTypeFilter">💊 Type:</label>
-                    <select id="medTypeFilter" onchange="applyMedicationFilters()" class="filter-select">
-                        <option value="all">All Types</option>
-                        <option value="syrup">Syrup</option>
-                        <option value="tablet">Tablet</option>
-                        <option value="capsule">Capsule</option>
-                        <option value="chew">Chew</option>
-                        <option value="powder">Powder</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="medAlertFilter">📅 Alert Range:</label>
-                    <select id="medAlertFilter" onchange="applyMedicationFilters()" class="filter-select">
-                        <option value="all">All Dates</option>
-                        <option value="overdue">Overdue</option>
-                        <option value="week">Within 7 Days</option>
-                        <option value="month">Within 30 Days</option>
-                        <option value="future">Future</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="medStockFilter">📦 Stock Status:</label>
-                    <select id="medStockFilter" onchange="applyMedicationFilters()" class="filter-select">
-                        <option value="all">All Stock</option>
-                        <option value="critical">Critical (≤3)</option>
-                        <option value="low">Low (≤5)</option>
-                        <option value="medium">Medium (6-15)</option>
-                        <option value="good">Good (>15)</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="medSortBy">🔄 Sort By:</label>
-                    <select id="medSortBy" onchange="applyMedicationFilters()" class="filter-select">
-                        <option value="name">Name (A-Z)</option>
-                        <option value="date">Alert Date</option>
-                        <option value="quantity">Quantity</option>
-                        <option value="status">Status</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="medViewType">👁️ View:</label>
-                    <select id="medViewType" onchange="changeMedicationView()" class="filter-select">
-                        <option value="cards">Cards</option>
-                        <option value="table">Table</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <button onclick="toggleMedicationForm()" class="filter-btn">+ Add New</button>
-                </div>
-                <div class="filter-group">
-                    <button onclick="clearMedicationFilters()" class="clear-btn">🔄 Clear All</button>
-                </div>
-            </div>
-
-            <!-- Add Medication Form (Hidden by default) -->
-            <div id="medicationFormContainer" class="medication-form-container" style="display: none;">
-                <div class="medication-form">
-                    <input type="text" id="medName" placeholder="Medication name">
-                    <input type="text" id="medDosage" placeholder="Dosage">
-                    <input type="number" id="medQuantity" placeholder="Quantity remaining">
-                    <input type="date" id="medRefillDate" placeholder="Refill date">
-                    <button onclick="addMedicationTracking()">Add Medication</button>
-                    <button onclick="toggleMedicationForm()" class="cancel-btn">Cancel</button>
-                </div>
-            </div>
-
-            <!-- Medication Cards View -->
-            <div id="medicationTrackingList" class="medication-tracking-list">
-                <p>Loading medications...</p>
-            </div>
-
-            <!-- Medication Table View -->
-            <div id="medicationTable" class="medication-table" style="display: none;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Medication Name</th>
-                            <th>Dosage</th>
-                            <th>Quantity Remaining</th>
-                            <th>Next Alert Date</th>
-                            <th>Days Until Refill</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="medicationTableBody"></tbody>
-                </table>
-            </div>
-        </section>
-
-        <section class="family-access">
-            <h2>👨‍👩‍👧‍👦 Family Sharing Access</h2>
-            <div class="family-form">
-                <input type="text" id="familyName" placeholder="Family member name">
-                <input type="email" id="familyEmail" placeholder="Email address">
-                <select id="familyRole">
-                    <option value="">Select access level</option>
-                    <option value="admin">Admin (Full Access)</option>
-                    <option value="editor">Editor (Can Edit)</option>
-                    <option value="viewer">Viewer (Read Only)</option>
-                </select>
-                <button onclick="addFamilyMember()">Add Family Member</button>
-            </div>
-            <div id="familyList" class="family-list">
-                <p>No family members added</p>
-            </div>
-        </section>
-
-        <section class="ai-chatbot">
-            <h2>🤖 AI Pet Health Assistant</h2>
-            <div class="chatbot-container">
-                <div id="chatMessages" class="chat-messages">
-                    <div class="bot-message">Hello! I'm your AI pet health assistant. Ask me anything about Cherry's health, diet, or care!</div>
-                </div>
-                <div class="chat-input-container">
-                    <input type="text" id="chatInput" placeholder="Ask about pet health..." onkeypress="if(event.key==='Enter') sendMessage()">
-                    <button onclick="sendMessage()">Send</button>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    
+    <script src="js/app.js"></script>
 </body>
 </html>

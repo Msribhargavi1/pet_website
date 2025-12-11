@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Cherry</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- User Info Bar -->
+    <div id="userBar" class="user-bar">
+        <div class="user-info">
+            <span class="user-greeting">👑 Admin Panel - <strong id="userName">Admin</strong></span>
+            <span class="user-role admin" id="userRole">Admin</span>
+        </div>
+        <div class="admin-nav">
+            <a href="index.html" class="nav-link">🏠 Main App</a>
+            <button onclick="handleLogout()" class="logout-btn">🚪 Logout</button>
+        </div>
+    </div>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>🐾 Admin Panel</h2>
+            </div>
+            <nav class="admin-menu">
+                <a href="#" class="menu-item active" onclick="showSection('dashboard')">
+                    <span>📊</span> Dashboard
+                </a>
+                <div class="menu-group">
+                    <div class="menu-title">MANAGE</div>
+                    <a href="#" class="menu-item" onclick="showSection('users')">
+                        <span>👤</span> Users
+                    </a>
+                    <a href="#" class="menu-item" onclick="showSection('dogs')">
+                        <span>🐕</span> Dog Records
+                    </a>
+                </div>
+                <div class="menu-group">
+                    <div class="menu-title">MASTER DATA</div>
+                    <a href="#" class="menu-item" onclick="showSection('vaccines')">
+                        <span>💉</span> Vaccine Types
+                    </a>
+                    <a href="#" class="menu-item" onclick="showSection('breeds')">
+                        <span>🐶</span> Breeds List
+                    </a>
+                    <a href="#" class="menu-item" onclick="showSection('diseases')">
+                        <span>🏥</span> Common Diseases
+                    </a>
+                </div>
+                <div class="menu-group">
+                    <div class="menu-title">REPORTS</div>
+                    <a href="#" class="menu-item" onclick="showSection('vaccinations')">
+                        <span>📅</span> Upcoming Vaccinations
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <!-- Dashboard Section -->
+            <div id="section-dashboard" class="admin-section active">
+                <h1>📊 Dashboard Overview</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3 id="totalUsers">5</h3>
+                            <p>Total Users</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <h3 id="activeUsers">4</h3>
+                            <p>Active Users</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🐕</div>
+                        <div class="stat-info">
+                            <h3 id="totalDogs">3</h3>
+                            <p>Total Dogs</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💉</div>
+                        <div class="stat-info">
+                            <h3 id="upcomingVaccines">4</h3>
+                            <p>Upcoming Vaccinations</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>📈 Recent Activity</h3>
+                        <ul class="activity-list" id="recentActivity">
+                            <li><span class="time">2 mins ago</span> New user registered: Srihari</li>
+                            <li><span class="time">1 hour ago</span> Vaccination record added for Cherry</li>
+                            <li><span class="time">3 hours ago</span> Medical history updated</li>
+                            <li><span class="time">Yesterday</span> New dog profile created</li>
+                        </ul>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>⚠️ Alerts</h3>
+                        <ul class="alert-list">
+                            <li class="alert-warning">3 vaccinations due this week</li>
+                            <li class="alert-info">2 new user registrations pending</li>
+                            <li class="alert-success">All systems operational</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Section -->
+            <div id="section-users" class="admin-section">
+                <h1>👤 User Management</h1>
+                <div class="section-actions">
+                    <input type="text" id="userSearch" placeholder="🔍 Search users..." class="search-input">
+                    <button class="action-btn primary" onclick="showAddUserModal()">+ Add User</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr>
+                            <td>1</td>
+                            <td>Admin User</td>
+                            <td>admin@kiropets.com</td>
+                            <td>9999999999</td>
+                            <td><span class="role-badge admin">Admin</span></td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>
+                                <button class="btn-icon" title="Edit">✏️</button>
+                                <button class="btn-icon" title="Reset Password" onclick="resetPassword(1)">🔑</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Pet Owner</td>
+                            <td>owner@kiropets.com</td>
+                            <td>8888888888</td>
+                            <td><span class="role-badge owner">Owner</span></td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>
+                                <button class="btn-icon" title="Edit">✏️</button>
+                                <button class="btn-icon" title="Reset Password" onclick="resetPassword(2)">🔑</button>
+                                <button class="btn-icon" title="Block" onclick="toggleUserStatus(2)">🚫</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Dr. Veterinarian</td>
+                            <td>vet@kiropets.com</td>
+                            <td>7777777777</td>
+                            <td><span class="role-badge vet">Vet</span></td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>
+                                <button class="btn-icon" title="Edit">✏️</button>
+                                <button class="btn-icon" title="Reset Password" onclick="resetPassword(3)">🔑</button>
+                                <button class="btn-icon" title="Block" onclick="toggleUserStatus(3)">🚫</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Srihari</td>
+                            <td>srihari12@gmail.com</td>
+                            <td>9876543210</td>
+                            <td><span class="role-badge owner">Owner</span></td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>
+                                <button class="btn-icon" title="Edit">✏️</button>
+                                <button class="btn-icon" title="Reset Password" onclick="resetPassword(4)">🔑</button>
+                                <button class="btn-icon" title="Block" onclick="toggleUserStatus(4)">🚫</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Srinivasulu</td>
+                            <td>vasulu.cnu@gmail.com</td>
+                            <td>9123456789</td>
+                            <td><span class="role-badge admin">Admin</span></td>
+                            <td><span class="status-badge blocked">Blocked</span></td>
+                            <td>
+                                <button class="btn-icon" title="Edit">✏️</button>
+                                <button class="btn-icon" title="Reset Password" onclick="resetPassword(5)">🔑</button>
+                                <button class="btn-icon" title="Unblock" onclick="toggleUserStatus(5)">✅</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Dog Records Section -->
+            <div id="section-dogs" class="admin-section">
+                <h1>🐕 Dog Records</h1>
+                <div class="section-actions">
+                    <input type="text" id="dogSearch" placeholder="🔍 Search dogs..." class="search-input">
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Breed</th>
+                            <th>Age</th>
+                            <th>Owner</th>
+                            <th>Last Checkup</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dogsTableBody">
+                        <tr>
+                            <td>1</td>
+                            <td>🐕 Cherry</td>
+                            <td>Golden Retriever</td>
+                            <td>4 years</td>
+                            <td>Pet Owner</td>
+                            <td>Nov 2025</td>
+                            <td>
+                                <button class="btn-icon" title="View Details" onclick="viewDogDetails(1)">👁️</button>
+                                <button class="btn-icon" title="Medical History">📋</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>🐕 Max</td>
+                            <td>German Shepherd</td>
+                            <td>2 years</td>
+                            <td>Srihari</td>
+                            <td>Oct 2025</td>
+                            <td>
+                                <button class="btn-icon" title="View Details" onclick="viewDogDetails(2)">👁️</button>
+                                <button class="btn-icon" title="Medical History">📋</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>🐕 Bella</td>
+                            <td>Labrador</td>
+                            <td>3 years</td>
+                            <td>Srinivasulu</td>
+                            <td>Sep 2025</td>
+                            <td>
+                                <button class="btn-icon" title="View Details" onclick="viewDogDetails(3)">👁️</button>
+                                <button class="btn-icon" title="Medical History">📋</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Vaccine Types Section -->
+            <div id="section-vaccines" class="admin-section">
+                <h1>💉 Vaccine Types</h1>
+                <div class="section-actions">
+                    <button class="action-btn primary" onclick="showAddVaccineModal()">+ Add Vaccine Type</button>
+                </div>
+                <div class="master-data-grid">
+                    <div class="data-card">
+                        <h4>Rabies</h4>
+                        <p>Frequency: Annual</p>
+                        <p>Required: Yes</p>
+                        <div class="card-actions">
+                            <button class="btn-small">Edit</button>
+                            <button class="btn-small danger">Delete</button>
+                        </div>
+                    </div>
+                    <div class="data-card">
+                        <h4>DHPP</h4>
+                        <p>Frequency: Annual</p>
+                        <p>Required: Yes</p>
+                        <div class="card-actions">
+                            <button class="btn-small">Edit</button>
+                            <button class="btn-small danger">Delete</button>
+                        </div>
+                    </div>
+                    <div class="data-card">
+                        <h4>Bordetella</h4>
+                        <p>Frequency: 6 months</p>
+                        <p>Required: Optional</p>
+                        <div class="card-actions">
+                            <button class="btn-small">Edit</button>
+                            <button class="btn-small danger">Delete</button>
+                        </div>
+                    </div>
+                    <div class="data-card">
+                        <h4>Leptospirosis</h4>
+                        <p>Frequency: Annual</p>
+                        <p>Required: Recommended</p>
+                        <div class="card-actions">
+                            <button class="btn-small">Edit</button>
+                            <button class="btn-small danger">Delete</button>
+                        </div>
+                    </div>
+                    <div class="data-card">
+                        <h4>Deworming</h4>
+                        <p>Frequency: 3 months</p>
+                        <p>Required: Yes</p>
+                        <div class="card-actions">
+                            <button class="btn-small">Edit</button>
+                            <button class="btn-small danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breeds List Section -->
+            <div id="section-breeds" class="admin-section">
+                <h1>🐶 Breeds List</h1>
+                <div class="section-actions">
+                    <button class="action-btn primary" onclick="showAddBreedModal()">+ Add Breed</button>
+                </div>
+                <div class="master-data-grid">
+                    <div class="data-card"><h4>Golden Retriever</h4><p>Size: Large</p><p>Origin: Scotland</p></div>
+                    <div class="data-card"><h4>German Shepherd</h4><p>Size: Large</p><p>Origin: Germany</p></div>
+                    <div class="data-card"><h4>Labrador Retriever</h4><p>Size: Large</p><p>Origin: Canada</p></div>
+                    <div class="data-card"><h4>Beagle</h4><p>Size: Medium</p><p>Origin: England</p></div>
+                    <div class="data-card"><h4>Poodle</h4><p>Size: Various</p><p>Origin: Germany/France</p></div>
+                    <div class="data-card"><h4>Bulldog</h4><p>Size: Medium</p><p>Origin: England</p></div>
+                    <div class="data-card"><h4>Rottweiler</h4><p>Size: Large</p><p>Origin: Germany</p></div>
+                    <div class="data-card"><h4>Dachshund</h4><p>Size: Small</p><p>Origin: Germany</p></div>
+                </div>
+            </div>
+
+            <!-- Common Diseases Section -->
+            <div id="section-diseases" class="admin-section">
+                <h1>🏥 Common Diseases</h1>
+                <div class="section-actions">
+                    <button class="action-btn primary" onclick="showAddDiseaseModal()">+ Add Disease</button>
+                </div>
+                <div class="master-data-grid">
+                    <div class="data-card">
+                        <h4>Portosystemic Shunt (PSS)</h4>
+                        <p>Type: Congenital</p>
+                        <p>Severity: Serious</p>
+                        <p>Treatment: Diet management, Surgery</p>
+                    </div>
+                    <div class="data-card">
+                        <h4>Hip Dysplasia</h4>
+                        <p>Type: Genetic</p>
+                        <p>Severity: Moderate-Serious</p>
+                        <p>Treatment: Medication, Surgery</p>
+                    </div>
+                    <div class="data-card">
+                        <h4>Parvovirus</h4>
+                        <p>Type: Viral</p>
+                        <p>Severity: Critical</p>
+                        <p>Treatment: Hospitalization</p>
+                    </div>
+                    <div class="data-card">
+                        <h4>Kennel Cough</h4>
+                        <p>Type: Respiratory</p>
+                        <p>Severity: Mild-Moderate</p>
+                        <p>Treatment: Antibiotics, Rest</p>
+                    </div>
+                    <div class="data-card">
+                        <h4>Ear Infections</h4>
+                        <p>Type: Bacterial/Fungal</p>
+                        <p>Severity: Mild</p>
+                        <p>Treatment: Ear drops, Cleaning</p>
+                    </div>
+                    <div class="data-card">
+                        <h4>Allergies</h4>
+                        <p>Type: Environmental/Food</p>
+                        <p>Severity: Varies</p>
+                        <p>Treatment: Diet change, Medication</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Vaccinations Section -->
+            <div id="section-vaccinations" class="admin-section">
+                <h1>📅 Upcoming Vaccinations (All Users)</h1>
+                <div class="section-actions">
+                    <select id="vaccineFilter" class="filter-select">
+                        <option value="all">All Time</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="overdue">Overdue</option>
+                    </select>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Dog</th>
+                            <th>Owner</th>
+                            <th>Vaccine</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🐕 Cherry</td>
+                            <td>Pet Owner</td>
+                            <td>Rabies Booster</td>
+                            <td>April 15, 2026</td>
+                            <td><span class="status-badge upcoming">Upcoming</span></td>
+                            <td><button class="btn-small">Send Reminder</button></td>
+                        </tr>
+                        <tr>
+                            <td>🐕 Cherry</td>
+                            <td>Pet Owner</td>
+                            <td>DHPP</td>
+                            <td>June 20, 2026</td>
+                            <td><span class="status-badge upcoming">Upcoming</span></td>
+                            <td><button class="btn-small">Send Reminder</button></td>
+                        </tr>
+                        <tr>
+                            <td>🐕 Max</td>
+                            <td>Srihari</td>
+                            <td>Deworming</td>
+                            <td>Dec 15, 2025</td>
+                            <td><span class="status-badge due-soon">Due Soon</span></td>
+                            <td><button class="btn-small">Send Reminder</button></td>
+                        </tr>
+                        <tr>
+                            <td>🐕 Bella</td>
+                            <td>Srinivasulu</td>
+                            <td>Rabies</td>
+                            <td>Nov 30, 2025</td>
+                            <td><span class="status-badge overdue">Overdue</span></td>
+                            <td><button class="btn-small danger">Urgent Reminder</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
